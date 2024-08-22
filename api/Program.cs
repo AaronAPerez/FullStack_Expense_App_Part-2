@@ -11,8 +11,8 @@ builder.Services.AddScoped<ExpenseItemService>();
 builder.Services.AddScoped<PasswordService>();
 
 //for our Azure server
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+var connectionString = builder.Configuration.GetConnectionString("ExpenseAppString");
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
