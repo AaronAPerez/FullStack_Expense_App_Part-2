@@ -1,9 +1,15 @@
 using api.Data;
+using api.Services;
+using api.Services.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ExpenseItemService>();
+builder.Services.AddScoped<PasswordService>();
+
 //for our Azure server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
