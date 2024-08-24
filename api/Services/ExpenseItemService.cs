@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
+using api.Services.Context;
 
 namespace api.Services
 {
     public class ExpenseItemService
     {
+        private readonly DataContext _context;
+
+        public ExpenseItemService(DataContext context)
+        {
+            _context = context;
+        }
         internal bool AddExpenseItems(ExpenseItemModel newExpenseItem)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            _context.Add(newExpenseItem);
+            result = _context.SaveChanges() != 0;
+            return result;
         }
 
         internal bool DeleteExpenseItem(ExpenseItemModel expenseDelete)
@@ -18,17 +28,17 @@ namespace api.Services
             throw new NotImplementedException();
         }
 
-        internal IEnumerable<ExpenseItemModel> GetAllExpenseItems()
+        public IEnumerable<ExpenseItemModel> GetAllExpenseItems()
         {
-            throw new NotImplementedException();
+            return _context.ExpenseInfo;
         }
 
         internal IEnumerable<ExpenseItemModel> GetItemByCategory(string category)
         {
-            throw new NotImplementedException();
+            return _context.ExpenseInfo.Where(item => item.Category == category);
         }
 
-        internal bool UpdateBlogItems(ExpenseItemModel expenseUpdate)
+        public bool UpdateBlogItems(ExpenseItemModel expenseUpdate)
         {
             throw new NotImplementedException();
         }
