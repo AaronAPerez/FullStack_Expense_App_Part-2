@@ -13,29 +13,29 @@ namespace api.Controllers;
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly UserService _data;
-        public UserController(UserService dataFromService)
-        {
-            _data = dataFromService;
-        }
+    
+    private readonly UserService _data;
+    public UserController(UserService dataFromService) => _data = dataFromService;
 
-        // Add a User
-        [HttpPost("AddUsers")]
+    // // Add a User
+    [HttpPost("AddUsers")]
         public bool AddUser(CreateAccountDTO UserToAdd)
         {
             return _data.AddUser(UserToAdd);
         }
 
-        // GetAllUser Endpoint
-        [HttpGet("GetAllUsers")]
+    // // GetAllUser Endpoint
+    [HttpGet("GetAllUsers")]
 
-        public IEnumerable<UserModel> GetAllUsers()
+    public IEnumerable<UserModel> GetAllUsers()
+    {
         {
             return _data.GetAllUsers();
         }
+    }
 
-        // GetUserByUserName
-        [HttpGet("GetUserByUsername/{username}")]
+    // // GetUserByUserName
+    [HttpGet("GetUserByUsername/{username}")]
 
         public UserIdDTO GetUserIdDTOByUsername(string username)
         {
@@ -43,7 +43,7 @@ namespace api.Controllers;
         }
 
 
-        // Login
+        // // Login
         [HttpPost("Login")]
 
         public IActionResult Login([FromBody] LoginDTO User)
@@ -63,5 +63,5 @@ namespace api.Controllers;
             return _data.UpdateUser(id,username);
         }
 
-        }
+    }
  

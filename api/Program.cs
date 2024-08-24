@@ -1,4 +1,3 @@
-using api.Data;
 using api.Services;
 using api.Services.Context;
 using Microsoft.EntityFrameworkCore;

@@ -28,6 +28,12 @@ const ExpenseList = ({
     amount: 0,
     category: "",
   });
+  // const [currentExpense, setCurrentExpense] = useState<Expense>({
+  //   id: 0,
+  //   description: "",
+  //   amount: 0,
+  //   category: "",
+  // });
 
   
 

@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace api.Models.DTO;
 
-    public class LoginDTO
+    public class UserIdDTO
     {
-        public string? Username { get; set; }
-        public string? Password { get; set; }
+        public int UserId { get; set; }
+
+        public string? PublisherName { get; set; }
+        
     }
