@@ -13,6 +13,17 @@ builder.Services.AddScoped<PasswordService>();
 var connectionString = builder.Configuration.GetConnectionString("ExpenseAppString");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
+//Cors policy
+builder.Services.AddCors(options => {
+    options.AddPolicy("BlogPolicy",
+    builder => {
+        builder.WithOrigins("http://localhost:5173")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    }
+    );
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

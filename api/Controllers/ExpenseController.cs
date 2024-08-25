@@ -48,7 +48,7 @@ namespace api.Controllers;
 
         public bool UpdateExpenseItems(ExpenseItemModel ExpenseUpdate)
         {
-            return _data.UpdateBlogItems(ExpenseUpdate);
+            return _data.UpdateExpenseItems(ExpenseUpdate);
         }
 
         [HttpPost("DeleteExpenseItem/{ExpenseDelete}")]

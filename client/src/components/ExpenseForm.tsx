@@ -11,11 +11,22 @@ import { MdFormatListBulletedAdd } from "react-icons/md";
 // Zod schema for form validation
 const schema = z
   .object({
-    id: z.number().default(0),
-    description: z.string()
-      .min(1, { message: "Required field - Enter at least one character" }),
-    amount:
-      z.preprocess(
+    id: z
+    .number()
+    .default(0),
+    userid: z
+    .number()
+    .default(0),
+    title: z
+    .string()
+      .min(1, 
+        { message: "Required field - Enter at least one character" }),
+    description: z
+    .string()
+      .min(1, 
+        { message: "Required field - Enter at least one character" }),
+    amount: z
+    .preprocess(
         (value) => (typeof value === "string" ? parseFloat(value) : value),
         z.number({ invalid_type_error: "Required Field - Amount must be a number" })
           .positive({ message: "Amount must be positive" })
@@ -46,6 +57,8 @@ const ExpenseForm = ({ fetchData, currentExpense }: ExpenseFormProps) => {
     resolver: zodResolver(schema),
     defaultValues: {
       id: currentExpense?.id || 0,
+      userid: currentExpense?.id || 0,
+      title: currentExpense?.title || '',
       description: currentExpense?.description || '',
       amount: currentExpense?.amount || '',
       category: currentExpense?.category || '',
@@ -62,7 +75,7 @@ const ExpenseForm = ({ fetchData, currentExpense }: ExpenseFormProps) => {
 
   const addExpense = (data: FormData) => {
     axios
-      .post(`${BASE_URL}`, data)
+      .post(`${BASE_URL}AddExpenseItems`, data)
       .then((response) => {
         submitHandler(response.data);
         fetchData();
@@ -76,7 +89,7 @@ const ExpenseForm = ({ fetchData, currentExpense }: ExpenseFormProps) => {
 
   const editExpense = (data: FormData) => {
     axios
-      .put(`${BASE_URL}${currentExpense.id}`, data)
+      .put(`${BASE_URL}UpdateExpenseItems${currentExpense.id}`, data)
       .then((response) => {
         submitHandler(response.data);
         console.log(response);
@@ -94,6 +107,16 @@ const ExpenseForm = ({ fetchData, currentExpense }: ExpenseFormProps) => {
     <>
     <div className="container">
       <form onSubmit={handleSubmit(submitHandler)}>
+        <div className="my-3">
+          <label htmlFor="title" className="form-label">Title</label>
+          <input
+            {...register("title")}
+            type="text"
+            className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+            id="description"
+          />
+          {errors.description && <div className="invalid-feedback">{errors.description.message}</div>}
+        </div>
         <div className="my-3">
           <label htmlFor="description" className="form-label">Description</label>
           <input

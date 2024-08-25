@@ -24,16 +24,11 @@ const ExpenseList = ({
   const [editId, setEditId] = useState<number | null>(null);
   const [currentExpense, setCurrentExpense] = useState<Expense>({
     id: 0,
+    title: "",
     description: "",
     amount: 0,
     category: "",
   });
-  // const [currentExpense, setCurrentExpense] = useState<Expense>({
-  //   id: 0,
-  //   description: "",
-  //   amount: 0,
-  //   category: "",
-  // });
 
   
 
@@ -49,6 +44,7 @@ const ExpenseList = ({
     setEditId(null);
     setCurrentExpense({
       id: 0,
+      title: "",
       description: "",
       amount: 0,
       category: "",
@@ -99,6 +95,7 @@ const ExpenseList = ({
           <table className="table table-bordered border-success">
             <thead>
               <tr>
+                <th scope="col" className="tableHeadFoot">Title</th>
                 <th scope="col" className="tableHeadFoot">Description</th>
                 <th scope="col" className="tableHeadFoot">Amount</th>
                 <th scope="col" className="tableHeadFoot">Category</th>
@@ -109,6 +106,15 @@ const ExpenseList = ({
               {expenses.map((expense) => 
                 editId === expense.id ? (
                   <tr key={expense.id}>
+                    <td>
+                      <input
+                        type="text"
+                        value={currentExpense.title}
+                        onChange={(e) =>
+                          setCurrentExpense({ ...currentExpense, title: e.target.value })
+                        }
+                      />
+                    </td>
                     <td>
                       <input
                         type="text"
@@ -147,6 +153,7 @@ const ExpenseList = ({
                   </tr>
                 ) : (
                   <tr key={expense.id}>
+                    <td>{expense.title}</td>
                     <td>{expense.description}</td>
                     <td>${expense.amount.toFixed(2)}</td>
                     <td>{expense.category}</td>

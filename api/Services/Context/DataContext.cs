@@ -18,9 +18,9 @@ namespace api.Services.Context;
 
         public DbSet<ExpenseItemModel> ExpenseInfo {get; set;}
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(builder);
     }
 
 }

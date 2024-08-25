@@ -9,6 +9,7 @@ import { BASE_URL } from "./constant";
 
 export interface Expense {
   id: number;
+  title: string;
   description: string;
   amount: number;
   category: string;
@@ -29,7 +30,7 @@ const App = () => {
 
   const fetchData = () => {
     axios
-      .get<Expense[]>(`${BASE_URL}`)
+      .get<Expense[]>(`${BASE_URL}GetExpenseItems`)
       .then(response => 
         setExpenses(response.data)) // Update the Expenses state with the fetched data
         .catch((error) => setError(error.message)); // Set the error message if an error occurs
@@ -82,44 +83,6 @@ const App = () => {
                   category={selectedCategory}
           
                 />
-
-
-
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td col-span="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
-
-
-
-
-
-
               </div>
             </div>
           </div>
