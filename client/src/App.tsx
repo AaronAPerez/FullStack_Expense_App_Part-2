@@ -5,6 +5,7 @@ import ExpenseList from "./components/ExpenseList";
 import { FaPiggyBank } from "react-icons/fa";
 import axios from "axios";
 import { BASE_URL } from "./constant";
+import { BrowserRouter } from "react-router-dom";
 
 
 export interface Expense {
@@ -18,8 +19,7 @@ export interface Expense {
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [error, setError] = useState('');
-  const [editExpense, setEditExpense] = useState<Expense | undefined>(undefined);
+
 
 
 
@@ -31,10 +31,10 @@ const App = () => {
   const fetchData = () => {
     axios
       .get<Expense[]>(`${BASE_URL}GetExpenseItems`)
-      .then(response => 
+      .then(response =>
         setExpenses(response.data)) // Update the Expenses state with the fetched data
-        .catch((error) => setError(error.message)); // Set the error message if an error occurs
-    };
+      .catch((error) => setError(error.message)); // Set the error message if an error occurs
+  };
 
 
 
@@ -57,9 +57,13 @@ const App = () => {
   }, []);
 
 
-    return (
-      <>
+  return (
+
+    <>
+      <BrowserRouter>
+
         <div className="container">
+
           <header className="py-2 border-bottom">
             <h1 className="text-center">
               EXPENSE TR
@@ -70,7 +74,7 @@ const App = () => {
           <div className="main">
             <div className="row">
               <div className="col-md-4">
-                <ExpenseForm fetchData={fetchData} currentData={editExpense} />
+                <ExpenseForm fetchData={fetchData} currentData={setExpenses} />
               </div>
               <div className="col-md-8 pt-2">
                 <ExpenseFilter
@@ -81,14 +85,16 @@ const App = () => {
                   fetchData={fetchData}
                   onDelete={handleDelete}
                   category={selectedCategory}
-          
+
                 />
               </div>
             </div>
           </div>
         </div>
-      </>
-    );
-  };
 
-  export default App;
+      </BrowserRouter>
+    </>
+  );
+};
+
+export default App;

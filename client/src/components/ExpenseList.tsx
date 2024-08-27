@@ -5,6 +5,7 @@ import axios from "axios";
 import { BASE_URL } from "../constant";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
 
 
 interface ExpenseListProps {
@@ -54,7 +55,7 @@ const ExpenseList = ({
   const saveExpense = (id: number) => {
     if (currentExpense) {
       axios
-        .put(`${BASE_URL}${id}`, currentExpense)
+        .put(`${BASE_URL}UpdateExpenseItem${id}`, currentExpense)
         .then(() => {
           fetchData();
         })
@@ -63,18 +64,7 @@ const ExpenseList = ({
     stopEdit();
   };
 
-  const handleDelete= (id: number) => {
-    axios
-      .delete(`${BASE_URL}${id}`)
-      .then(() => {
-        setExpenses(expenses.filter((expense) => expense.id !== id));
-        fetchData();
-      })
-      .catch(error => {
-        console.log(error);
-        setError('Error deleting expense');
-      });
-  };
+0 
 
 
 
@@ -177,7 +167,7 @@ const ExpenseList = ({
               <tr>
                 <td className="tableHeadFoot">Total Expenses</td>
                 <td className="tableHeadFoot">
-                  $
+                <RiMoneyDollarCircleLine size={45} color="green"/>
                   {expenses
                     .reduce(
                       (total, expense) => total + parseInt(expense.amount),
@@ -185,6 +175,7 @@ const ExpenseList = ({
                     )
                     .toFixed(2)}
                 </td>
+                <td className="tableHeadFoot"></td>
                 <td className="tableHeadFoot"></td>
                 <td className="tableHeadFoot"></td>
               </tr>

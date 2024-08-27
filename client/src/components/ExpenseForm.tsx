@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../constant';
-import { Expense } from './ExpenseList';
+import { Expense } from '../App';
 import { z } from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -39,7 +39,7 @@ const schema = z
 
 type FormData = z.infer<typeof schema>;
 
-interface ExpenseFormProps {
+export interface ExpenseFormProps {
   onSubmit: (expense: Expense) => void;
   fetchData: () => void;
   currentExpense?: Expense;
@@ -89,7 +89,7 @@ const ExpenseForm = ({ fetchData, currentExpense }: ExpenseFormProps) => {
 
   const editExpense = (data: FormData) => {
     axios
-      .put(`${BASE_URL}UpdateExpenseItems${currentExpense.id}`, data)
+      .put(`${BASE_URL}${currentExpense.id}`, data)
       .then((response) => {
         submitHandler(response.data);
         console.log(response);
