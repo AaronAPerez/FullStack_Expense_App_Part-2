@@ -162,11 +162,6 @@ public class UserService : ControllerBase
         return _context.UserInfo.SingleOrDefault(user => user.Id == id);
     }
 
-    private DbSet<UserModel> GetUserInfo()
-    {
-        return _context.UserInfo;
-    }
-
     public bool UpdateUser(int id, string username)
     {
        UserModel foundUser = GetUserById(id);

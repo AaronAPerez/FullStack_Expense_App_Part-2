@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
 using api.Services.Context;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace api.Services;
 
-public class ExpenseItemService
+public class ExpenseItemService : ControllerBase
 {
+
     private readonly DataContext _context;
 
     public ExpenseItemService(DataContext context)
@@ -22,6 +25,7 @@ public class ExpenseItemService
         result = _context.SaveChanges() != 0;
         return result;
     }
+    
     public bool DeleteExpenseItem(ExpenseItemModel expenseDelete)
     {
         throw new NotImplementedException();
@@ -42,13 +46,30 @@ public class ExpenseItemService
         throw new NotImplementedException();
     }
     
-
-
-
+    public List<ExpenseItemModel> GetExpensesByTag(string Tag)
+    {
+        List<ExpenseItemModel> AllExpensesWithTag = new List<ExpenseItemModel>();
+        var allItems = GetAllExpenseItems().ToList();
+        for(int i = 0; i < allItems.Count; i++)
+        {
+        ExpenseItemModel Item = allItems[i];
+        var itemArr = Item.Tag.Split(',');
+        for(int j = 0; j < itemArr.Length; j++)
+        {
+            if(itemArr[j].Contains(Tag))
+            {
+                AllExpensesWithTag.Add(Item);
+                break;
+            }
+        }
+    }
+    return AllExpensesWithTag;
+    }
 
     public bool UpdateExpenseItems(ExpenseItemModel expenseUpdate)
     {
         throw new NotImplementedException();
     }
+
 
 }

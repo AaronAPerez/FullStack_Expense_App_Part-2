@@ -15,7 +15,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(conne
 
 //Cors policy
 builder.Services.AddCors(options => {
-    options.AddPolicy("BlogPolicy",
+    options.AddPolicy("ExpensePolicy",
     builder => {
         builder.WithOrigins("http://localhost:5173")
         .AllowAnyHeader()
@@ -38,13 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //Only During Development!!!!!
-app.UseCors(options =>
-{
-    options.AllowAnyHeader();
-    options.AllowAnyMethod();
-    options.AllowAnyOrigin();
-});
-
+app.UseCors("ExpensePolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

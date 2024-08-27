@@ -1,25 +1,25 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers;
 
     [ApiController]
     [Route("api/[controller]")]
+
     public class ExpenseController : ControllerBase
     {
         private readonly ExpenseItemService _data;
+
         public ExpenseController(ExpenseItemService dataFromService)
         {
             _data = dataFromService;
         }
-
+        // AddExpenseItems
         [HttpPost("AddExpenseItems")]
 
         public bool AddExpenseItems(ExpenseItemModel newExpenseItem)
@@ -28,7 +28,7 @@ namespace api.Controllers;
             return _data.AddExpenseItems(newExpenseItem);
         }
 
-
+        // GetAllExpenseItems 
         [HttpGet("GetExpenseItems")]
 
         public IEnumerable<ExpenseItemModel> GetAllExpenseItems()
@@ -36,7 +36,7 @@ namespace api.Controllers;
             return _data.GetAllExpenseItems();
         }
 
-
+         // GetExpenseItemsByCategory
         [HttpGet("GetExpenseItemByCategory/{Category}")]
 
         public IEnumerable<ExpenseItemModel> GetItemByCategory(string Category)
@@ -44,6 +44,22 @@ namespace api.Controllers;
             return _data.GetItemByCategory(Category);
         }
 
+        // GetItemsByTags
+        [HttpGet("GetItemsByTag/{Tag}")]
+        public List<ExpenseItemModel> GetItemsByTag(string Tag)
+        {
+            return _data.GetItemsByTag(Tag);
+        }
+
+        // GetExpenseItemsByDate
+        [HttpGet("GetItemsByDate/{Date}")]
+
+        public IEnumerable<ExpenseItemModel> GetExpensesByDate(string Date)
+        {
+            return _data.GetItemsByDate(Date);
+        }
+
+        // UpdateExpenseItems
         [HttpPost("UpdateExpenseItems")]
 
         public bool UpdateExpenseItems(ExpenseItemModel ExpenseUpdate)
@@ -51,6 +67,8 @@ namespace api.Controllers;
             return _data.UpdateExpenseItems(ExpenseUpdate);
         }
 
+
+        // DeleteExpenseItems
         [HttpPost("DeleteExpenseItem/{ExpenseDelete}")]
 
         public bool DeleteExpenseItem(ExpenseItemModel ExpenseDelete)
@@ -60,79 +78,3 @@ namespace api.Controllers;
     }
 
 
-
-
-
-    // [HttpGet]
-    // public async Task<IEnumerable<ExpenseItemModel>> GetExpense()
-    // {
-    //     var expenses = await _context.Expenses.AsNoTracking().ToListAsync();
-    //     return expenses;
-    // }
-
-        
-    //     [HttpPost]
-    //     public async Task<IActionResult> Create (Expense expense)
-    //     {  if(!ModelState.IsValid)
-    //         {
-    //             return BadRequest(ModelState);
-    //         }
-    //         await _context.AddAsync(expense);
- 
-
-    //     var result = await _context.SaveChangesAsync();
-
-    //     if (result > 0)
-    //     {
-    //         return Ok("Expense Created Successfully");
-    //     }
-
-    //     return NotFound("Expense Not Created");
-
-    // }
-
-
-    // [HttpDelete("{id:int}")]
-    // public async Task<IActionResult> Delete(int id)
-    // {
-    //     var expense = await _context.Expenses.FindAsync(id);
-    //     if (expense == null)
-    //     {
-    //         return NotFound("Expense Not Found");
-    //     }
-    //     _context.Remove(expense);
-
-    //     var result = await _context.SaveChangesAsync();
-
-    //     if (result > 0)
-    //     {
-    //         return Ok("Expense deleted successfully");
-    //     }
-    //     return BadRequest("Unable to delete Expense");
-    // }
-
-
-
-    // [HttpPut("{id:int}")]
-    // public async Task<IActionResult> EditExpense(int id, Expense expense)
-    // {
-    //     var expenseFromDb = await _context.Expenses.FindAsync(id);
-
-    //     if (expenseFromDb == null)
-    //     {
-    //         return BadRequest("Student Not Found");
-    //     }
-    //     expenseFromDb.Description = expense.Description;
-    //     expenseFromDb.Amount = expense.Amount;
-    //     expenseFromDb.Category = expense.Category;
-
-
-    //     var result = await _context.SaveChangesAsync();
-
-    //     if (result > 0)
-    //     {
-    //         return Ok(" Expense updated "+ expense.Description);
-    //     }
-    //     return BadRequest("Unable to update expense" + expense.Description);
-    //     }
-    // }
