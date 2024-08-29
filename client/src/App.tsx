@@ -6,84 +6,90 @@ import { FaPiggyBank } from "react-icons/fa";
 import axios from "axios";
 import { BASE_URL } from "./constant";
 import { BrowserRouter } from "react-router-dom";
+import { Container, Button } from "react-bootstrap";
+import NavBar from "./components/NavBar";
 
 
-export interface Expense {
-  id: number;
-  title: string;
-  description: string;
-  amount: number;
-  category: string;
-}
+// export interface Expense {
+//   id: number;
+//   title: string;
+//   description: string;
+//   amount: number;
+//   category: string;
+// }
 
 const App = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  // const [selectedCategory, setSelectedCategory] = useState("");
+  // const [expenses, setExpenses] = useState<Expense[]>([]);
 
 
 
-  ///////////////////////////
-  
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  
-  useEffect(() => {
-    const currentTheme = localStorage.getItem('theme');
-    if(currentTheme) {
-      setIsDarkMode(currentTheme === 'dark');
+    ///////////////////////////
+    
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    
+    useEffect(() => {
+      const currentTheme = localStorage.getItem('theme');
+      if(currentTheme) {
+        setIsDarkMode(currentTheme === 'dark');
+      }
+    }, []);
+
+    const toggleDarkMode = () => {
+      setIsDarkMode(prevMode => !prevMode);
     }
-  }, []);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(prevMode => !prevMode);
-  }
+    useEffect(() => {
+    document.body.className = isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark';
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    }, [isDarkMode]);
 
-  useEffect(() => {
-   document.body.className = isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark';
-   localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
-
-/////////////////////////////
+    /////////////////////////////
 
 
-  const visibleExpenses = selectedCategory
-    ? expenses.filter((expense) => expense.category === selectedCategory)
-    : expenses;
+          // {/* const visibleExpenses = selectedCategory
 
-  const fetchData = () => {
-    axios
-      .get<Expense[]>(`${BASE_URL}GetExpenseItems`)
-      .then(response =>
-        setExpenses(response.data)) // Update the Expenses state with the fetched data
-      .catch((error) => setError(error.message)); // Set the error message if an error occurs
-  };
+          //   ? expenses.filter((expense) => expense.category === selectedCategory)
+          // //   : expenses;
+
+          // // const fetchData = () => {
+          // //   axios
+          // //     .get<Expense[]>(`${BASE_URL}GetExpenseItems`)
+          // //     .then(response =>
+          // //       setExpenses(response.data)) // Update the Expenses state with the fetched data
+          // //     .catch((error) => setError(error.message)); // Set the error message if an error occurs
+          // // };
 
 
 
 
-  const handleDelete = (id: number) => {
-    axios
-      .delete(`${BASE_URL}${id}`)
-      .then(() => {
-        setExpenses(expenses.filter((expense) => expense.id !== id));
-        fetchData();
-      })
-      .catch(error => {
-        console.log(error);
-        setError('Error deleting expense');
-      });
-  };
+          // // const handleDelete = (id: number) => {
+          // //   axios
+          // //     .delete(`${BASE_URL}${id}`)
+          // //     .then(() => {
+          // //       setExpenses(expenses.filter((expense) => expense.id !== id));
+          // //       fetchData();
+          // //     })
+          // //     .catch(error => {
+          // //       console.log(error);
+          // //       setError('Error deleting expense');
+          // //     });
+          // // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+          // // useEffect(() => {
+          // //   fetchData();
+          // // }, []); /*}
 
 
   return (
 
     <>
-      <BrowserRouter>
-     {/* Interpulatite Javascript code to turnanry */}
-      {/* <Container fluid className={`d-flex flex-column justify-content-center align-items-center ${
+    {/* </BrowserRouter> */}
+
+    <Container className="p-0 fluid">
+      <NavBar isDarkMode={isDarkMode} />
+    </Container>
+      <Container fluid={`d-flex flex-column justify-content-center align-items-center ${
         isDarkMode ? 'bg-dark text-light' : 'bg-light'
       }`}
       style={{ minHeight: "100vh" }}
@@ -98,10 +104,10 @@ const App = () => {
             <Button variant="outline-dark" onClick={toggleDarkMode}>Light Theme</Button>
           )
         }
-      </Container> */}
+      </Container> 
       ////////////////////////////
 
-        <div className="container">
+        {/*<div className="container">
 
           <header className="py-2 border-bottom">
             <h1 className="text-center">
@@ -129,9 +135,9 @@ const App = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
     </>
   );
 };
