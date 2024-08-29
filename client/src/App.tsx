@@ -22,6 +22,27 @@ const App = () => {
 
 
 
+  ///////////////////////////
+  
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  
+  useEffect(() => {
+    const currentTheme = localStorage.getItem('theme');
+    if(currentTheme) {
+      setIsDarkMode(currentTheme === 'dark');
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(prevMode => !prevMode);
+  }
+
+  useEffect(() => {
+   document.body.className = isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark';
+   localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
+
+/////////////////////////////
 
 
   const visibleExpenses = selectedCategory
@@ -61,6 +82,24 @@ const App = () => {
 
     <>
       <BrowserRouter>
+     {/* Interpulatite Javascript code to turnanry */}
+      {/* <Container fluid className={`d-flex flex-column justify-content-center align-items-center ${
+        isDarkMode ? 'bg-dark text-light' : 'bg-light'
+      }`}
+      style={{ minHeight: "100vh" }}
+      >
+        <h1 className="text-center mb-5">Hello Blog</h1>
+        <h1>{isDarkMode ? "Dark Theme" : "Ligth Theme"}</h1>
+
+        {
+          isDarkMode ? (
+            <Button variant="outline-dark" onClick={toggleDarkMode}>Dark Theme</Button>
+          ) : (
+            <Button variant="outline-dark" onClick={toggleDarkMode}>Light Theme</Button>
+          )
+        }
+      </Container> */}
+      ////////////////////////////
 
         <div className="container">
 
