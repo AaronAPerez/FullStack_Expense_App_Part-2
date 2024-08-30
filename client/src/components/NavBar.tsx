@@ -1,17 +1,23 @@
 import React from "react";
 import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap"
+import { FaRegMoon } from "react-icons/fa6";
+import { IoSunnyOutline } from 'react-icons/io5';
 
 
 
-const NavBar = ({ isDarkMode }) => {
+const NavBar = ({ isDarkMode, toggleDarkMode }) => {
   return (
 
     <>
-      <Navbar collapseOnSelect expand="lg" 
+      <Navbar 
+      collapseOnSelect 
+      expand="lg" 
       data-bs-theme={`${isDarkMode ? "dark" : "light"}`} 
-      className={`${isDarkMode ? "bg-dark text-light" : "bg-body-tertiary"}`}>
+      className={`${isDarkMode ? "bg-dark text-light" : "bg-body-tertiary"}`}
+      fixed="top"
+      >
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="#home">Our Daily Blog</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -30,7 +36,14 @@ const NavBar = ({ isDarkMode }) => {
               </NavDropdown>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">More deets</Nav.Link>
+              <Nav.Link href="#deets">
+                {
+                isDarkMode ? (
+                  <FaRegMoon onClick={toggleDarkMode} fontSize={20} />
+                ) : (
+                  <IoSunnyOutline onClick={toggleDarkMode} fontSize={30} />
+                )
+                </Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
                 Dank memes
               </Nav.Link>

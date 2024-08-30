@@ -71,5 +71,8 @@ public class ExpenseItemService : ControllerBase
         throw new NotImplementedException();
     }
 
-
+    internal List<ExpenseItemModel> GetItemsByTag(string tag)
+    {
+        throw new NotImplementedException();
+    }
 }
