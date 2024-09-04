@@ -4529,11 +4529,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aaper\\Documents\\.CodeStack Academy\\React\\FullStack_Expense_App-Final\\FullStack_Expense_App-Part2\\api\\api.csproj",
+      "projectUniqueName": "C:\\Users\\aaper\\Documents\\.CodeStack Academy\\Fullstack_Product_App\\FullStack_Expense_App-Part2\\api\\api.csproj",
       "projectName": "api",
-      "projectPath": "C:\\Users\\aaper\\Documents\\.CodeStack Academy\\React\\FullStack_Expense_App-Final\\FullStack_Expense_App-Part2\\api\\api.csproj",
+      "projectPath": "C:\\Users\\aaper\\Documents\\.CodeStack Academy\\Fullstack_Product_App\\FullStack_Expense_App-Part2\\api\\api.csproj",
       "packagesPath": "C:\\Users\\aaper\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aaper\\Documents\\.CodeStack Academy\\React\\FullStack_Expense_App-Final\\FullStack_Expense_App-Part2\\api\\obj\\",
+      "outputPath": "C:\\Users\\aaper\\Documents\\.CodeStack Academy\\Fullstack_Product_App\\FullStack_Expense_App-Part2\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\aaper\\AppData\\Roaming\\NuGet\\NuGet.Config"
