@@ -8,6 +8,8 @@ import { BASE_URL } from "./constant";
 import { BrowserRouter } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
 import NavBar from "./components/NavBar";
+import CarouselHero from "./components/CarouselHero";
+import Dashboard from "./components/Dashboard";
 
 
 // export interface Expense {
@@ -50,14 +52,14 @@ const App = () => {
           // {/* const visibleExpenses = selectedCategory
 
           //   ? expenses.filter((expense) => expense.category === selectedCategory)
-          // //   : expenses;
+          //   : expenses;
 
-          // // const fetchData = () => {
-          // //   axios
-          // //     .get<Expense[]>(`${BASE_URL}GetExpenseItems`)
-          // //     .then(response =>
-          // //       setExpenses(response.data)) // Update the Expenses state with the fetched data
-          // //     .catch((error) => setError(error.message)); // Set the error message if an error occurs
+          // const fetchData = () => {
+          //   axios
+          //     .get<Expense[]>(`${BASE_URL}GetExpenseItems`)
+          //     .then(response =>
+          //       setExpenses(response.data)) // Update the Expenses state with the fetched data
+          //     .catch((error) => setError(error.message)); // Set the error message if an error occurs
           // // };
 
 
@@ -82,29 +84,29 @@ const App = () => {
 
 
   return (
-
     <>
-    {/* </BrowserRouter> */}
-
-    <Container className="p-0 fluid">
-      <NavBar isDarkMode={isDarkMode} />
+    <BrowserRouter> 
+    <Container fluid
+      className={`${ isDarkMode ? 'bg-dark text-light' : 'bg-light'}`}
+      style={{ minHeight: "100vh", padding: '0px' }}
+    >
+    <Container className="p-0" fluid>
+      <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode}/>
     </Container>
-    <Container fluid={`d-flex flex-column justify-content-center align-items-center ${
-        isDarkMode ? 'bg-dark text-light' : 'bg-light'
-      }`}
-      style={{ minHeight: "100vh" }}
-      >
-        <h1 className="text-center mb-5">Hello Blog</h1>
-        <h1>{isDarkMode ? "Dark Theme" : "Light Theme"}</h1>
 
-        {
-          isDarkMode ? (
-            <Button variant="outline-dark" onClick={toggleDarkMode}>Dark Theme</Button>
-          ) : (
-            <Button variant="outline-dark" onClick={toggleDarkMode}>Light Theme</Button>
-          )
-        }
-      </Container> 
+    <CarouselHero isDarkMode={isDarkMode} />
+    <Dashboard />
+
+       
+    </Container> 
+     
+     </BrowserRouter>
+     </>
+   );
+ };
+ 
+ export default App;
+
       ////////////////////////////
 
         {/*<div className="container">
@@ -137,9 +139,9 @@ const App = () => {
           </div>
         </div> */}
 
-      {/* </BrowserRouter> */}
-    </>
-  );
-};
+//       </BrowserRouter>
+//     </>
+//   );
+// };
 
-export default App;
+// export default App;

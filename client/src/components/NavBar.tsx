@@ -1,51 +1,66 @@
 import React from "react";
-import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap"
-import { FaRegMoon } from "react-icons/fa6";
+import { Nav, Navbar, NavDropdown, Container, Row, Col, Text, Icon } from 'react-bootstrap';
+import { FaRegMoon } from "react-icons/fa";
 import { IoSunnyOutline } from 'react-icons/io5';
+import Sun from '../assets/images/Sun Screenshot 2024-09-03 210225-Photoroom.png'
+import Moon from '../assets/images/Weather_icon_-_full_moon.svg.png'
+import Monopoly from '../assets/images/Monopoly Screenshot 2024-09-03 215301.png'
 
+import Money from "../assets/images/Money-Benjamin-unsplash.jpg";
 
 
 const NavBar = ({ isDarkMode, toggleDarkMode }) => {
   return (
 
     <>
-      <Navbar 
-      collapseOnSelect 
-      expand="lg" 
-      data-bs-theme={`${isDarkMode ? "dark" : "light"}`} 
-      className={`${isDarkMode ? "bg-dark text-light" : "bg-body-tertiary"}`}
-      fixed="top"
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        data-bs-theme={`${isDarkMode ? "dark" : "light"}`}
+        className={`${isDarkMode ? "bg-dark text-light" : "bg-body-tertiary"}`}
+      // fixed="top"
       >
         <Container>
-          <Navbar.Brand href="#home">Our Daily Blog</Navbar.Brand>
+          <Navbar.Brand href="#home">Daily Expenses</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
-              <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <Nav.Link href="#features">About</Nav.Link>
+              <Nav.Link href="#pricing">Contact</Nav.Link>
+              <NavDropdown title="Write" id="collapsible-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Write</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
-                  Another action
+                  Dashboard
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">Published</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">
-                  Separated link
+                  Unpublished
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Nav>
+            <Nav className="welcome">
               <Nav.Link href="#deets">
                 {
-                isDarkMode ? (
-                  <FaRegMoon onClick={toggleDarkMode} fontSize={20} />
-                ) : (
-                  <IoSunnyOutline onClick={toggleDarkMode} fontSize={30} />
-                )
-                </Nav.Link>
+                  isDarkMode ? (
+                    <img
+                    src={Sun} 
+             onClick={toggleDarkMode} width={30} title="Light Mode"/>
+           
+                    // <FaRegMoon onClick={toggleDarkMode} fontSize={20} />
+                  ) : (
+                
+
+                     <img
+                    src={Moon} 
+             onClick={toggleDarkMode} width={30} title="Dark Mode" />
+      
+                  )
+                }
+              </Nav.Link>
+              <Nav.Link>Welcome Aaron</Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
-                Dank memes
+                <img src={Monopoly} width={30} className="roundedCircle" />
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
