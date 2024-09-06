@@ -68,7 +68,17 @@ public class ExpenseItemService : ControllerBase
 
     public bool UpdateExpenseItems(ExpenseItemModel expenseUpdate)
     {
-        throw new NotImplementedException();
+        _context.Update<ExpenseItemModel>(expenseUpdate);
+            return _context.SaveChanges() !=0;
+    }
+
+    public IEnumerable<ExpenseItemModel> GetItemsByUserId(int userId)
+    { 
+         return _context.ExpenseInfo.Where(item => item.UserId == userId && item.IsDeleted == false);
+
+    }
+       public IEnumerable<ExpenseItemModel> GetPublishedItems() {
+        return _context.ExpenseInfo.Where(item => item.IsPublished && item.IsDeleted == false);
     }
 
     internal List<ExpenseItemModel> GetItemsByTag(string tag)

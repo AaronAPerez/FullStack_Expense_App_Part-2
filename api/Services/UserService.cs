@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using api.Models;
 using api.Models.DTO;
 using api.Services.Context;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace api.Services;
@@ -41,7 +41,7 @@ public class UserService : ControllerBase
     {
         bool result = false;
         //if the user already exist
-        if(!DoesUserExist(userToAdd.UserName))
+        if(!DoesUserExist(userToAdd.Username))
         {
            UserModel User = new UserModel();
 
@@ -50,7 +50,7 @@ public class UserService : ControllerBase
             var newHashedPassword = HashPassword(userToAdd.Password);
 
             newUser.Id = userToAdd.Id;
-            newUser.Username = userToAdd.UserName;
+            newUser.Username = userToAdd.Username;
             newUser.Salt =  newHashedPassword.Salt;
             newUser.Hash = newHashedPassword.Hash;
 
@@ -59,10 +59,21 @@ public class UserService : ControllerBase
             result  =  _context.SaveChanges() != 0;
 
 
+ 
+
+
+
+
+
         }
         //if the do not exist we add an account
         return result;
         //Else throw a false
+    }
+
+    private bool DoesUserExist(object username)
+    {
+        throw new NotImplementedException();
     }
 
     public PasswordDTO HashPassword(string password)
@@ -108,7 +119,7 @@ public class UserService : ControllerBase
     public IActionResult Login(LoginDTO user)
     {
         IActionResult Result = Unauthorized();
-        if(DoesUserExist(user.Username))
+        if(DoesUserExist(user.UserName))
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("letsaddmorereallylongkeysuperSecretKey@345"));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -174,4 +185,5 @@ public class UserService : ControllerBase
        }
        return result;
     }
+    
 }
