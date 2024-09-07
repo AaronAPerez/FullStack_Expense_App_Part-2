@@ -55,5 +55,5 @@ const CarouselHero = ({ isDarkMode }) => {
     </>
   )
 }
-
+;
 export default CarouselHero

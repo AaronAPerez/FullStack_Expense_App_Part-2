@@ -71,10 +71,6 @@ public class UserService : ControllerBase
         //Else throw a false
     }
 
-    private bool DoesUserExist(object username)
-    {
-        throw new NotImplementedException();
-    }
 
     public PasswordDTO HashPassword(string password)
     {

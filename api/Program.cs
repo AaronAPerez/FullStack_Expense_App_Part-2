@@ -37,7 +37,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("ExpensePolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

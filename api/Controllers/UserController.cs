@@ -43,7 +43,7 @@ public class UserController : ControllerBase
     // GetUserByUserName
     [HttpGet("GetUserByUsername/{username}")]
 
-    public UserIdDTO GetUserIdDTOByUsername(string username)
+    public UserIdDTO GetUserIdDTOByUserName(string username)
     {
         return _data.GetUserIdDTOByUserName(username);
     }

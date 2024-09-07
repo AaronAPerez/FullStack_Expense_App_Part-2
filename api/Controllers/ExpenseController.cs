@@ -75,6 +75,20 @@ namespace api.Controllers;
         {
             return _data.DeleteExpenseItem(ExpenseDelete);
         }
+
+            //WE need a GetItemsByUserId 
+    [HttpGet("GetItemsByUserId/{UserId}")]
+
+    public IEnumerable<ExpenseItemModel> GetItemsByUserId (int UserId)
+    {
+        return _data.GetItemsByUserId(UserId);
+    }
+
+    [HttpGet("GetPublishedItems")]
+        public IEnumerable<ExpenseItemModel> GetPublishedItems() 
+        {
+            return _data.GetPublishedItems();
+        }
     }
 
 

@@ -1,4 +1,5 @@
-//This will hold our helper functions or method.
+import CreateAccount from '../components/CreateAccount';
+// //This will hold our helper functions or method.
 let userData = {};
 if(localStorage.getItem("UserData")) {
     userData = JSON.parse(localStorage.getItem("UserData"));
@@ -7,7 +8,7 @@ if(localStorage.getItem("UserData")) {
 
 //helper function to check our token.
 const checkToken = () => {
-    let result = false;
+    let result= false;
     let lsData = localStorage.getItem("Token");
     if(lsData && lsData != null)
     {
@@ -18,7 +19,7 @@ const checkToken = () => {
 
 //helper function or method to createAccount, async and await
 //fetch() json(), stringify
-const createAccount = async (createduser) => 
+const createAccount = async (createduser : string) =>
 {
     const result = await fetch('http://localhost:5021/api/User/AddUsers',{
         method: "POST",
@@ -37,7 +38,8 @@ const createAccount = async (createduser) =>
         
 }
 
-const login = async (loginUser) => 
+
+const login = async (loginUser : string) => 
 {
     const result = await fetch('http://localhost:5021/api/User/Login',{
         method: "POST",
@@ -61,7 +63,7 @@ const login = async (loginUser) =>
         return data;
 }
 
-    const GetLoggedInUser = async (username) => 
+    const GetLoggedInUser = async (username : string) => 
     {
        let result = await fetch(`http://localhost:5021/api/User/GetUserByUsername/${username}`)
        
@@ -169,4 +171,4 @@ const login = async (loginUser) =>
     }
 
 
-export {checkToken,createAccount,login,GetLoggedInUser,LoggedInData,sendData,AddExpenseItems,getExpenseItems,GetItemsByUserId,updateExpenseItems,getPublishedExpenseItems}
+export {checkToken, createAccount, userData, login, GetLoggedInUser, LoggedInData, sendData, AddExpenseItems, getExpenseItems, GetItemsByUserId, updateExpenseItems, getPublishedExpenseItems}

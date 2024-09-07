@@ -1,4 +1,3 @@
-@api_HostAddress = http://localhost:5173
 @api_HostAddress = http://localhost:5021
 
 GET {{api_HostAddress}}/weatherforecast/

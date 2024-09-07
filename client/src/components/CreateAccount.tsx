@@ -20,10 +20,10 @@ const CreateAccount = () => {
     }
 
     //Function or method to handle our password
-    const handlePassword = (e) => {
-        setPassword(e.target.value)
+    function handlePassword(e) {
+    setPassword(e.target.value);
 
-    }
+  }
 
     //Function or method to hanlde our submit
     const handleSubmit = () => {
