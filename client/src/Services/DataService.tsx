@@ -1,10 +1,8 @@
-import CreateAccount from '../components/CreateAccount';
-// //This will hold our helper functions or method.
+//This will hold our helper functions or method.
 let userData = {};
 if(localStorage.getItem("UserData")) {
     userData = JSON.parse(localStorage.getItem("UserData"));
 }
-
 
 //helper function to check our token.
 const checkToken = () => {
@@ -19,27 +17,25 @@ const checkToken = () => {
 
 //helper function or method to createAccount, async and await
 //fetch() json(), stringify
-const createAccount = async (createduser : string) =>
-{
-    const result = await fetch('http://localhost:5021/api/User/AddUsers',{
+async function createAccount(createduser) {
+    const result = await fetch('http://localhost:5021/api/User/AddUsers', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(createduser)
-    })
-    if(!result.ok)
-    {
-        const message = `Yo yo you have an Error Check your code!${result.status}`
+    });
+    if (!result.ok) {
+        const message = `Yo yo you have an Error Check your code!${result.status}`;
         throw new Error(message);
     }
-        let data = await result.json();
-        console.log(data,"create account method");
-        
+    let data = await result.json();
+    console.log(data, "create account method");
+
 }
 
 
-const login = async (loginUser : string) => 
+const login = async (loginUser) => 
 {
     const result = await fetch('http://localhost:5021/api/User/Login',{
         method: "POST",
@@ -63,7 +59,7 @@ const login = async (loginUser : string) =>
         return data;
 }
 
-    const GetLoggedInUser = async (username : string) => 
+    const GetLoggedInUser = async (username) => 
     {
        let result = await fetch(`http://localhost:5021/api/User/GetUserByUsername/${username}`)
        

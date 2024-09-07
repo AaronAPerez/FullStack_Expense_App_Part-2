@@ -167,7 +167,7 @@ const Dashboard = ({ isDarkMode, onLogin }) => {
      description,
      category,
      tag,
-     image,
+    //  image,
      isDeleted,
      isPublished,
    }
@@ -187,7 +187,7 @@ const Dashboard = ({ isDarkMode, onLogin }) => {
    setExpenseDescription(description);
    setExpenseCategory(category);
    setExpenseTags(tag);
-   setExpenseImage(image);
+  //  setExpenseImage(image);
    setIsDeleted(isDeleted);
    setIsPublished(isPublished);
    console.log(e.target.textContent, edit);
@@ -206,19 +206,19 @@ const Dashboard = ({ isDarkMode, onLogin }) => {
  const handleCategory = (e) => {
    setExpenseCategory(e.target.value);
  };
- const handleImage = (e) => {
-     setExpenseImage(e.target.value)
- }
+//  const handleImage = (e) => {
+//      setExpenseImage(e.target.value)
+//  }
 
- const handleImage = async (e) => {
-   let file = e.target.files[0];
-   const reader = new FileReader();
-   reader.onloadend = () => {
-     console.log(reader.result);
-     setExpenseImage(reader.result);
-   };
-   reader.readAsDataURL(file);
- };
+//  const handleImage = async (e) => {
+//    let file = e.target.files[0];
+//    const reader = new FileReader();
+//    reader.onloadend = () => {
+//      console.log(reader.result);
+//      setExpenseImage(reader.result);
+//    };
+//    reader.readAsDataURL(file);
+//  };
  //function to help us handle pulish and unpublish
  const handlePublish = async (item) => {
    const { userId } = JSON.parse(localStorage.getItem("UserData"));
@@ -263,7 +263,7 @@ const Dashboard = ({ isDarkMode, onLogin }) => {
               description: "",
               category: "",
               tag: "",
-              image: "",
+              // image: "",
               IsDeleted: false,
               isPublished: false,
               publishername: publisherName
@@ -327,7 +327,7 @@ const Dashboard = ({ isDarkMode, onLogin }) => {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="Image">
+              {/* <Form.Group className="mb-3" controlId="Image">
                 <FormLabel>Pick an Image</FormLabel>
                 <Form.Control
                   type="file"
@@ -335,7 +335,7 @@ const Dashboard = ({ isDarkMode, onLogin }) => {
                   accept="image/png, image/jpg"
                   onChange={handleImage}
                 />
-              </Form.Group>
+              </Form.Group> */}
             </Form>
           </Modal.Body>
           <Modal.Footer>
