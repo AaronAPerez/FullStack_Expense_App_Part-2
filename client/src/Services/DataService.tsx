@@ -17,7 +17,8 @@ const checkToken = () => {
 
 //helper function or method to createAccount, async and await
 //fetch() json(), stringify
-async function createAccount(createduser) {
+const createAccount = async (createduser) =>
+ {
     const result = await fetch('http://localhost:5021/api/User/AddUsers', {
         method: "POST",
         headers: {
@@ -59,30 +60,46 @@ const login = async (loginUser) =>
         return data;
 }
 
-    const GetLoggedInUser = async (username) => 
-    {
-       let result = await fetch(`http://localhost:5021/api/User/GetUserByUsername/${username}`)
-       
-       userData = await result.json();
-        console.log(userData,"getloggedinsuser method")
-        localStorage.setItem("UserData",JSON.stringify(userData));
-        userData = JSON.parse(localStorage.getItem("UserData"));
+const GetLoggedInUser = async (username: string): Promise<void> => {
+    let result = await fetch(`http://localhost:5021/api/User/GetUserByUsername/${username}`);
+    
+    userData = await result.json();
+    console.log(userData, "getloggedinuser method");
+    localStorage.setItem("UserData", JSON.stringify(userData));
+    userData = JSON.parse(localStorage.getItem("UserData") || "{}");
+}
             
 
-    }
+    // const GetLoggedInUser = async (username) => 
+    // {
+    //    let result = await fetch(`"http://localhost:5021/api/User/GetUserByUsername/${username}"`)
+       
+    //    userData = await result.json();
+    //     console.log(userData,"getloggedinsuser method")
+    //     localStorage.setItem("UserData",JSON.stringify(userData));
+    //     userData = JSON.parse(localStorage.getItem("UserData"));
+            
 
-    const LoggedInData = () => 
-    {
-        if(!userData && localStorage.getItem("UserData")) {
-            userData = JSON.parse(localStorage.getItem("UserData"))
+    // }
+
+    const LoggedInData = (): any => {
+        if (!userData && localStorage.getItem("UserData")) {
+            userData = JSON.parse(localStorage.getItem("UserData") || "{}");
         }
         return userData;
     }
+    // const LoggedInData = () => 
+    // {
+    //     if(!userData && localStorage.getItem("UserData")) {
+    //         userData = JSON.parse(localStorage.getItem("UserData"))
+    //     }
+    //     return userData;
+    // }
 
     //We need a function to help us add our expense items
     const AddExpenseItems = async (expenseItems) => 
     {
-        const result = await fetch("http://localhost:5021/api/expense/AddExpenseItems",{
+        const result = await fetch("http://localhost:5021/api/Expense/AddExpenseItems",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -118,10 +135,10 @@ const login = async (loginUser) =>
             console.log(data,"sendData");
             return data;
     }
-    ///function to help us get our expenseitems
+  
     const getExpenseItems = async () =>
     {
-        let result = await fetch("http://localhost:5021/api/expense/GetExpenseItems")
+        let result = await fetch("http://localhost:5021/api/Expense/GetExpenseItems")
        
        let data = await result.json();
          console.log(data,"from our getExpenseitems method")
@@ -131,7 +148,7 @@ const login = async (loginUser) =>
     //create a function to hit our GetItemsByUserId 
     const GetItemsByUserId = async (UserId) => 
     {
-        let result = await fetch(`http://localhost:5021/api/expense/GetItemsByUserId/${UserId}`)
+        let result = await fetch(`http://localhost:5021/api/Expense/GetItemsByUserId/${UserId}`)
        
         let data = await result.json();
           console.log(data,"from our getitemsbyuserid method")
@@ -140,7 +157,7 @@ const login = async (loginUser) =>
     //Function to help us update our expense items
     const updateExpenseItems = async (expenseItems) => 
     {
-        const result = await fetch(`http://localhost:5021/api/expense/UpdateExpenseItems`,{
+        const result = await fetch(`http://localhost:5021/api/Expense/UpdateExpenseItems`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -160,7 +177,7 @@ const login = async (loginUser) =>
 //function to get our published expense itmes to display
     const getPublishedExpenseItems = async () =>
     {
-        let result = await fetch("http://localhost:5021/api/expense/GetPublishedItems")
+        let result = await fetch("http://localhost:5021/api/Expense/GetPublishedItems")
         let data = await result.json();
         return data;
 

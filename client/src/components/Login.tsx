@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { GetLoggedInUser, login } from "../Services/DataService";
 
 
-const Login = () => {
+const Login = ({ onLogin }) => {
 
  let navigate = useNavigate();
 
@@ -41,12 +41,10 @@ const Login = () => {
             {
               localStorage.setItem("Token",token.token);
               // localStorage.setItem("UserData",JSON.stringify(userData));
-             await GetLoggedInUser(Username);
-              
-              
+             GetLoggedInUser(Username);
               navigate('/Dashboard')
        }
-        return userData
+        // return userData
     }
 
 

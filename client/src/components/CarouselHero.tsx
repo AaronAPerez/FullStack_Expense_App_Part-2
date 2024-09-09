@@ -1,9 +1,10 @@
 import React from 'react'
-import { Carousel } from 'react-bootstrap'
+import { Carousel, Container } from 'react-bootstrap';
 
 import Laptop from '../assets/images/finance-background-uqu7wvtfbn9hx8vt.jpg'
 import Coffee from '../assets/images/chic-illustration-of-investment-eb57a6v6acsk497s.jpg'
 import Table from '../assets/images/gorgeous-depiction-of-capital-investment-x5slc0l5eqodfdxm.jpg'
+
 
 
 
@@ -15,6 +16,7 @@ const CarouselHero = ({ isDarkMode }) => {
 
   return (
     <>
+    <Container className='text-center'>
     <Carousel data-bs-theme={isDarkMode ? "light" : "dark"}>
       <Carousel.Item className='CItem'>
         <img
@@ -52,8 +54,9 @@ const CarouselHero = ({ isDarkMode }) => {
         </Carousel.Caption> */}
       </Carousel.Item>
     </Carousel>
+    </Container>
     </>
   )
 }
 ;
-export default CarouselHero
+export default CarouselHero;

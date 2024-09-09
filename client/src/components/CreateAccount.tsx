@@ -20,7 +20,7 @@ const CreateAccount = () => {
     }
 
     //Function or method to handle our password
-    function handlePassword(e) {
+    const handlePassword = (e) => {
     setPassword(e.target.value);
 
   }
@@ -32,7 +32,10 @@ const CreateAccount = () => {
             password: Password
         }
         createAccount(userData);
+        if(userData != null) 
+          {
         navigate('/Login');
+          }
         console.log(userData);
         
     }
@@ -56,7 +59,7 @@ const CreateAccount = () => {
                 <Form.Control type="password" placeholder="Enter Password" onChange={handlePassword} />
               </Form.Group>
               
-              <Button variant="outline-primary" onClick={handleSubmit}>
+              <Button variant="outline-primary my-2" onClick={handleSubmit}>
                 Submit
               </Button>
             </Form>

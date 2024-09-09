@@ -1,81 +1,86 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Image, Table } from "react-bootstrap";
+import { Container, Row, Col, Table } from "react-bootstrap";
 import { getPublishedExpenseItems } from "../Services/DataService";
-
-    // import { Expense } from "../App";
-    // import axios from "axios";
-    // import { BASE_URL } from "../constant";
-    // import { FaRegTrashCan } from "react-icons/fa6";
-    // import { FaEdit } from "react-icons/fa";
-    // import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import CarouselHero from "./CarouselHero";
 
 
-    // interface ExpensePageProps {
-    //   expenses: Expense[];
-    //   onDelete: (id: number) => void;
-    //   fetchData: () => void;
-    //   category: string;
-    // }
+// import { Expense } from "../App";
+// import axios from "axios";
+// import { BASE_URL } from "../constant";
+// import { FaRegTrashCan } from "react-icons/fa6";
+// import { FaEdit } from "react-icons/fa";
+// import { RiMoneyDollarCircleLine } from "react-icons/ri";
+
+
+// interface ExpensePageProps {
+//   expenses: Expense[];
+//   onDelete: (id: number) => void;
+//   fetchData: () => void;
+//   category: string;
+// }
 
 
 const ExpensePage = () => {
 
 
-     const [expenseItems, setExpenseItems] = useState([]);
-   
+  const [expenseItems, setExpenseItems] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
-     useEffect(() => {
-         getThePubllishedItems();
-     }, []);
- 
-     const getThePubllishedItems = async () =>
-     {
-         let publishedItems = await getPublishedExpenseItems();
-         setExpenseItems(publishedItems)
-     }
-     
-    //  const formatDate = (dateString) => {
-    //      const date = new Date(dateString);
-    //      return date.toLocaleDateString('en-US'); // This will format the date as M/D/YYYY
-    //  };
+
+  useEffect(() => {
+    getThePubllishedItems();
+  }, []);
+
+  const getThePubllishedItems = async () => {
+    let publishedItems = await getPublishedExpenseItems();
+    setExpenseItems(publishedItems)
+  }
+
+  //  const formatDate = (dateString) => {
+  //      const date = new Date(dateString);
+  //      return date.toLocaleDateString('en-US'); // This will format the date as M/D/YYYY
+  //  };
 
 
 
   return (
     <>
+
+      {/* <CarouselHero isDarkMode={isDarkMode} /> */}
+
       <h1 className="text-center">View Post Page</h1>
       <Container className="p-5">
-      <Table responsive>
-      <thead>
-        <tr>
-          <th>#</th>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <th key={index}>Table heading</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>Table cell {index}</td>
-          ))}
-        </tr>
-        <tr>
-          <td>2</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>Table cell {index}</td>
-          ))}
-        </tr>
-        <tr>
-          <td>3</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>Table cell {index}</td>
-          ))}
-        </tr>
-      </tbody>
-    </Table>
-        {/* <Row>
+        <Table responsive>
+          <thead>
+            <tr>
+              <th>#</th>
+              {Array.from({ length: 12 }).map((_, index) => (
+                <th key={index}>Table heading</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              {Array.from({ length: 12 }).map((_, index) => (
+                <td key={index}>Table cell {index}</td>
+              ))}
+            </tr>
+            <tr>
+              <td>2</td>
+              {Array.from({ length: 12 }).map((_, index) => (
+                <td key={index}>Table cell {index}</td>
+              ))}
+            </tr>
+            <tr>
+              <td>3</td>
+              {Array.from({ length: 12 }).map((_, index) => (
+                <td key={index}>Table cell {index}</td>
+              ))}
+            </tr>
+          </tbody>
+        </Table>
+        <Row>
           <Col>
             {expenseItems.map((item, index) => (
               <Container key={index}>
@@ -174,7 +179,7 @@ const ExpensePage = () => {
               </Container>
             ))}
           </Col>
-        </Row> */}
+        </Row>
       </Container>
     </>
   );
@@ -184,7 +189,7 @@ export default ExpensePage;
 
 
 
-  {/*
+{/*
   // ExpenseList component for displaying the list of expenses
   const ExpensePage = ({
   //   expenses,

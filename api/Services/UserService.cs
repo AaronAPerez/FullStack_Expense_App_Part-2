@@ -139,6 +139,7 @@ public class UserService : ControllerBase
         var foundUser = _context.UserInfo.SingleOrDefault(user => user.Username == username);
         UserInfo.UserId = foundUser.Id;
         UserInfo.PublisherName = foundUser.Username;
+      
 
         return UserInfo;
     }

@@ -7,30 +7,29 @@ import ExpensePage from "./components/ExpensePage";
 import CreateAccount from "./components/CreateAccount";
 import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-  // import ExpenseFilter from "./components/ExpenseFilter";
-  // import ExpenseForm from "./components/ExpenseForm";
-  // import ExpenseList from "./components/ExpenseList";
-  // import { FaPiggyBank } from "react-icons/fa";
-  // import axios from "axios";
-  // import { BASE_URL } from "./constant";
+// import ExpenseFilter from "./components/ExpenseFilter";
+// import ExpenseForm from "./components/ExpenseForm";
+// import ExpenseList from "./components/ExpenseList";
+// import { FaPiggyBank } from "react-icons/fa";
+// import axios from "axios";
+// import { BASE_URL } from "./constant";
 
 
 
-  // export interface Expense {
-  //   id: number;
-  //   title: string;
-  //   description: string;
-  //   amount: number;
-  //   category: string;
-  // }
+// export interface Expense {
+//   id: number;
+//   title: string;
+//   description: string;
+//   amount: number;
+//   category: string;
+// }
 
 const App = () => {
+  // const [selectedCategory, setSelectedCategory] = useState("");
+  // const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [selectedCategory, setSelectedCategory] = useState("");
-  // const [expenses, setExpenses] = useState<Expense[]>([]);
-
 
 
   const handleLogin = (userData) => {
@@ -67,14 +66,14 @@ const App = () => {
             <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           </Container>
 
-          <Container
+        <Container
           fluid
           className={`${isDarkMode ? "bg-dark text-light" : "bg-light"}`}
           style={{ minHeight: "100vh", padding: "0px" }}
           data-bs-theme={isDarkMode ? "dark" : "light"}
         >
 
-          <CarouselHero isDarkMode={isDarkMode} />
+          {/* <CarouselHero isDarkMode={isDarkMode} />  */}
           <Row className="">
             <Col>
               <h1 className="text-center">Our Expenses</h1>
@@ -82,9 +81,8 @@ const App = () => {
 
             {/* Area for our routes to go to different pages */}
             <Routes>
-
               <Route path="/" element={<ExpensePage />} />
-              <Route path="/Login" element={<Login />} />
+              <Route path="/Login" element={<Login onLogin={handleLogin}/>} />
               <Route path="/CreateAccount" element={<CreateAccount />} /> 
               <Route path="/Dashboard" element={<Dashboard isDarkMode={isDarkMode} onLogin={handleLogin}/>} />
               
