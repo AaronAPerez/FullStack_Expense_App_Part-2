@@ -54,9 +54,9 @@ body.bg-light {
     top: 35%;
     left: 50%; 
     transform: translate(-50%,-30%);
-    padding: 10px 16px;
     border-radius: 10px;
   }
+  
   /* .form-container {
     width: 40px;
     margin-left: 20%;

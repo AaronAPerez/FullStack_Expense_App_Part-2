@@ -7,9 +7,18 @@ import Monopoly from '../assets/images/Monopoly- 2024-09-07 210940.png'
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+interface NavBarProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+  user: any;
+  isLoggedIn: boolean;
+  setIsLoggedIn: (value: boolean) => void;
+}
 
 
-const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }) => {
+
+
+const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }: NavBarProps) => {
 
   const handleLogout = () => 
   {
@@ -32,18 +41,21 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn })
       >
        
         <Container>
-      
-       <Navbar.Brand href="#home"> 
-         Our Daily Expenses
-         
-        </Navbar.Brand>
 
+        <Nav.Link as={Link} to={"/"}>
+        <Navbar.Brand href="#home">Daily Expenses</Navbar.Brand>
+        </Nav.Link>
+         
+  
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
       
-              <Nav.Link as={Link} to={"/"}>
+              {/* <Nav.Link as={Link} to={"/"}>
+                
+                </Nav.Link> */}
+              <Nav.Link as={Link} to={"/ExpensePage"}>
                 Expense Page
               </Nav.Link>
               <Nav.Link as={Link} to={"/Dashboard"}>
@@ -51,26 +63,21 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn })
               </Nav.Link>
             </Nav>
             
-       
-    
-        
-           
 
-          
-          
                 
             <Nav className="welcome">
         
-            <Nav.Link href="#deets">
+            {/* <Nav.Link href="#deets"> */}
                 {isDarkMode ? (<IoSunnyOutline onClick={toggleDarkMode} fontSize={25} />
 
                   
                 ) : (
                   <FaRegMoon onClick={toggleDarkMode} fontSize={20} />
                 )}
-              </Nav.Link>
+              {/* </Nav.Link> */}
 
               <Nav.Link as={Link} to={"/CreateAccount"}>
+              
                 Create Account
               </Nav.Link>
               {isLoggedIn ? <Nav.Link as={Link} to={"/Login"} onClick={handleLogout} >
@@ -79,7 +86,7 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn })
                 Login
               </Nav.Link>  }
               
-              <Nav.Link>Welcome {user ? user.publisherName : "Guest"}</Nav.Link>
+              <Nav.Link><b>Welcome {user ? user.publisherName: "Guest"}</b></Nav.Link>
               <Nav.Link>
                 <Image className="profilepic" src={Monopoly} roundedCircle />
               </Nav.Link>
@@ -92,4 +99,9 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn })
 }
 
 export default NavBar;
+
+
+function setUser(arg0: null) {
+  throw new Error("Function not implemented.");
+}
 

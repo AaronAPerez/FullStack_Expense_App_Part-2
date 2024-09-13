@@ -89,13 +89,13 @@ const ExpensePage = () => {
                     <Row key={index}>
                       <Col md={6}>
                         <Row style={{ border: "solid" }}>
-                          <Col
+                          {/* <Col
                             style={{ border: "solid" }}
                             className="d-flex justify-content-center"
                             md={12}
                           >
                             Title
-                          </Col>
+                          </Col> */}
                           <Col md={12}>
                             <Row>
                               <Col
@@ -104,22 +104,22 @@ const ExpensePage = () => {
                               >
                                 Publisher Name
                               </Col>
-                              <Col
+                              {/* <Col
                                 className="text-center"
                                 style={{ border: "solid" }}
                                 md={6}
                               >
                                 Date
-                              </Col>
+                              </Col> */}
                             </Row>
                           </Col>
-                          <Col
+                          {/* <Col
                             style={{ border: "solid" }}
                             className="d-flex justify-content-center"
                             md={12}
                           >
                             Image
-                          </Col>
+                          </Col> */}
                         </Row>
                       </Col>
                       <Col
@@ -141,13 +141,13 @@ const ExpensePage = () => {
                       </Col>
                       <Col md={6}>
                         <Row style={{ border: "solid" }}>
-                          <Col
+                          {/* <Col
                             style={{ border: "solid" }}
                             className="d-flex justify-content-center"
                             md={12}
                           >
                             Title
-                          </Col>
+                          </Col> */}
                           <Col md={12}>
                             <Row>
                               <Col
@@ -156,22 +156,22 @@ const ExpensePage = () => {
                               >
                                 Publisher Name
                               </Col>
-                              <Col
+                              {/* <Col
                                 className="text-center"
                                 style={{ border: "solid" }}
                                 md={6}
                               >
                                 Date
-                              </Col>
+                              </Col> */}
                             </Row>
                           </Col>
-                          <Col
+                          {/* <Col
                             style={{ border: "solid" }}
                             className="d-flex justify-content-center"
                             md={12}
                           >
                             Image
-                          </Col>
+                          </Col> */}
                         </Row>
                       </Col>
                     </Row>

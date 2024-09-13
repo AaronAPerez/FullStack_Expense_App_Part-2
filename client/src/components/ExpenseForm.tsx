@@ -60,7 +60,7 @@ const ExpenseForm = ({ fetchData, currentExpense }: ExpenseFormProps) => {
       userid: currentExpense?.id || 0,
       title: currentExpense?.title || '',
       description: currentExpense?.description || '',
-      amount: currentExpense?.amount || '',
+      // amount: currentExpense?.amount || '',
       category: currentExpense?.category || '',
     },
   });

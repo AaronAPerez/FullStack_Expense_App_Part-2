@@ -16,7 +16,7 @@ const CarouselHero = ({ isDarkMode }) => {
 
   return (
     <>
-    <Container className='text-center'>
+    <Container fluid className='text-center'>
     <Carousel data-bs-theme={isDarkMode ? "light" : "dark"}>
       <Carousel.Item className='CItem'>
         <img

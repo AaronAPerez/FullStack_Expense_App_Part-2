@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import NavBar from "./components/NavBar";
 import CarouselHero from "./components/CarouselHero";
@@ -7,6 +7,7 @@ import ExpensePage from "./components/ExpensePage";
 import CreateAccount from "./components/CreateAccount";
 import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "./components/HomePage";
 // import ExpenseFilter from "./components/ExpenseFilter";
 // import ExpenseForm from "./components/ExpenseForm";
 // import ExpenseList from "./components/ExpenseList";
@@ -16,23 +17,28 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 
-// export interface Expense {
-//   id: number;
-//   title: string;
-//   description: string;
-//   amount: number;
-//   category: string;
-// }
+export interface Expense {
+  id: number;
+  // title: string;
+  description: string;
+  amount: number;
+  category: string;
+}
 
 const App = () => {
   // const [selectedCategory, setSelectedCategory] = useState("");
   // const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [currentData, setCurrentData] = useState<Expense | undefined>(undefined);
+  // const [currentData, setCurrentData] = useState<Expense | undefined>(undefined);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  // const [username, setUsername] = useState<string>('');
 
 
-  const handleLogin = (userData) => {
+  const handleLogin = (userData: SetStateAction<null>) => {
     setUser(userData);
     setIsLoggedIn(true);//Trigger re-render
   }
@@ -81,7 +87,8 @@ const App = () => {
 
             {/* Area for our routes to go to different pages */}
             <Routes>
-              <Route path="/" element={<ExpensePage />} />
+              <Route path="/" element={<Homepage />} />
+              <Route path="/ExpensePage" element={<ExpensePage />} />
               <Route path="/Login" element={<Login onLogin={handleLogin}/>} />
               <Route path="/CreateAccount" element={<CreateAccount />} /> 
               <Route path="/Dashboard" element={<Dashboard isDarkMode={isDarkMode} onLogin={handleLogin}/>} />
