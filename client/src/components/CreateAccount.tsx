@@ -6,8 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LiaEyeSlashSolid, LiaEyeSolid } from "react-icons/lia";
+import { toast } from "react-toastify";
 
-// Define a Zod schema for form validation
 const schema = z.object({
   username: z.string().min(2, "Username must be at least 2 characters long"),
   password: z
@@ -24,11 +24,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-interface CreateAccountProps {
-  onCreateAccount: () => void;
-}
-
-const CreateAccount = ({ onCreateAccount }: CreateAccountProps) => {
+const CreateAccount = () => {
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -40,17 +36,13 @@ const CreateAccount = ({ onCreateAccount }: CreateAccountProps) => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-    let userData = {
-      username: data.username,
-      password: data.password
-    };
     try {
-      onCreateAccount(); // Call the onCreateAccount prop function
+      await createAccount({ username: data.username, password: data.password });
+      toast.success("Account created successfully. Please log in.");
       navigate('/Login');
     } catch (error) {
       console.error("Error creating account:", error);
-      // Handle error (e.g., show error message to user)
+      toast.error("Failed to create account. Please try again.");
     }
   };
 
@@ -88,7 +80,7 @@ const CreateAccount = ({ onCreateAccount }: CreateAccountProps) => {
                   {passwordVisible ? (
                     <LiaEyeSlashSolid size={22} />
                   ) : (
-                    <LiaEyeSolid size={22} color="green" />
+                    <LiaEyeSolid size={22} />
                   )}
                 </span>
               </div>
@@ -113,7 +105,7 @@ const CreateAccount = ({ onCreateAccount }: CreateAccountProps) => {
                   {confirmPasswordVisible ? (
                     <LiaEyeSlashSolid size={22} />
                   ) : (
-                    <LiaEyeSolid size={22} color="green" />
+                    <LiaEyeSolid size={22} />
                   )}
                 </span>
               </div>

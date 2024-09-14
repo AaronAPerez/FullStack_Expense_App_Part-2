@@ -7,6 +7,8 @@ import ExpensePage from "./components/ExpensePage";
 import CreateAccount from "./components/CreateAccount";
 import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Homepage from "./components/HomePage";
 // import ExpenseFilter from "./components/ExpenseFilter";
 // import ExpenseForm from "./components/ExpenseForm";
@@ -87,7 +89,7 @@ const App = () => {
 
             {/* Area for our routes to go to different pages */}
             <Routes>
-              <Route path="/" element={<Homepage />} />
+              <Route path="/" element={<Homepage  />} />
               <Route path="/ExpensePage" element={<ExpensePage />} />
               <Route path="/Login" element={<Login onLogin={handleLogin}/>} />
               <Route path="/CreateAccount" element={<CreateAccount />} /> 
@@ -97,6 +99,7 @@ const App = () => {
 
           </Row>
         </Container>
+        <ToastContainer position="top-right" autoClose={3000} />
       </BrowserRouter>
     </>
   );

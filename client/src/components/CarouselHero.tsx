@@ -1,4 +1,3 @@
-import React from 'react'
 import { Carousel, Container } from 'react-bootstrap';
 
 import Laptop from '../assets/images/finance-background-uqu7wvtfbn9hx8vt.jpg'

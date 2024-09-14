@@ -1,9 +1,8 @@
-import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CarouselHero from './CarouselHero';
 
-const Homepage: React.FC = () => {
+const Homepage= () => {
   return (
     <Container fluid className="p-0">
       <CarouselHero isDarkMode={false} />

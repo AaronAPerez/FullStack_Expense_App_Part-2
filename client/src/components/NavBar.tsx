@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 interface NavBarProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
-  user: any;
+  user: string;
   isLoggedIn: boolean;
   setIsLoggedIn: (value: boolean) => void;
 }
@@ -23,7 +23,7 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }:
   const handleLogout = () => 
   {
     localStorage.clear();
-    setUser(null);
+    // setUser(null);
     setIsLoggedIn(false);
   }
 
@@ -42,30 +42,35 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }:
        
         <Container>
 
-        <Nav.Link as={Link} to={"/"}>
-        <Navbar.Brand href="#home">Daily Expenses</Navbar.Brand>
-        </Nav.Link>
+       <Nav.Link> 
+        <Navbar.Brand as={Link} to={"/"}>Daily Expenses</Navbar.Brand>
+        </Nav.Link> 
          
   
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
+              {isLoggedIn && (
+                <>
+              
       
-              {/* <Nav.Link as={Link} to={"/"}>
+               {/* <Nav.Link as={Link} to={"/"}>
                 
-                </Nav.Link> */}
-              <Nav.Link as={Link} to={"/ExpensePage"}>
+                </Nav.Link> 
+               <Nav.Link as={Link} to={"/ExpensePage"}>
                 Expense Page
-              </Nav.Link>
-              <Nav.Link as={Link} to={"/Dashboard"}>
+              </Nav.Link>  */}
+              <Nav.Link as={Link} to="/Dashboard">
                 Dashboard
               </Nav.Link>
+              </>
+              )}
             </Nav>
             
-
-                
             <Nav className="welcome">
+                
+            <Nav.Link onClick={toggleDarkMode}>
         
             {/* <Nav.Link href="#deets"> */}
                 {isDarkMode ? (<IoSunnyOutline onClick={toggleDarkMode} fontSize={25} />
@@ -74,23 +79,27 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }:
                 ) : (
                   <FaRegMoon onClick={toggleDarkMode} fontSize={20} />
                 )}
-              {/* </Nav.Link> */}
+            </Nav.Link> 
 
-              <Nav.Link as={Link} to={"/CreateAccount"}>
+            {!isLoggedIn ? (
+              <>
+                <Nav.Link as={Link} to="/CreateAccount">Create Account</Nav.Link>
+                <Nav.Link as={Link} to="/Login">Login</Nav.Link>
+              </>
+            ) : (
+              <Nav.Link as={Link} to="/Login" onClick={handleLogout}>Logout</Nav.Link>
+            )}
+            {isLoggedIn && (
+              <>
+                <Nav.Link>Welcome {user? user.publisherName:"Guest"}</Nav.Link>
+                <Nav.Link>
+                  <Image className="profilepic" src={Monopoly} roundedCircle />
+                </Nav.Link>
               
-                Create Account
-              </Nav.Link>
-              {isLoggedIn ? <Nav.Link as={Link} to={"/Login"} onClick={handleLogout} >
-                Logout
-               </Nav.Link> : <Nav.Link as={Link} to={"/Login"}>
-                Login
-              </Nav.Link>  }
-              
-              <Nav.Link><b>Welcome {user ? user.publisherName: "Guest"}</b></Nav.Link>
-              <Nav.Link>
-                <Image className="profilepic" src={Monopoly} roundedCircle />
-              </Nav.Link>
+              </>
+            )}
             </Nav>
+         
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -101,7 +110,5 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }:
 export default NavBar;
 
 
-function setUser(arg0: null) {
-  throw new Error("Function not implemented.");
-}
+
 

@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LiaEyeSlashSolid, LiaEyeSolid } from "react-icons/lia";
+import { toast } from "react-toastify";
+
 
 // Define a Zod schema for form validation
 const schema = z.object({
@@ -38,7 +40,10 @@ const Login = ({ onLogin }) => {
     if (token.token != null) {
       localStorage.setItem("Token", token.token);
       await GetLoggedInUser(data.username);
+      toast.success(`Welcome back, ${data.username}!`);
       navigate('/Dashboard');
+    } else {
+      toast.error("Login failed. Please check your credentials.");
     }
   };
 

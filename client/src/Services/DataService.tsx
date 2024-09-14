@@ -155,7 +155,7 @@ const GetLoggedInUser = async (username: string): Promise<void> => {
           return data;
     }
     //Function to help us update our expense items
-    const updateExpenseItems = async (expenseItems) => 
+    const updateExpenseItems = async (expenseItems, p0: { isPublished: boolean; }) => 
     {
         const result = await fetch(`http://localhost:5021/api/Expense/UpdateExpenseItems`,{
             method: "POST",
