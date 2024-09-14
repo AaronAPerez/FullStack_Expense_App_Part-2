@@ -145,22 +145,8 @@ const Dashboard: React.FC<{ isDarkMode: boolean; onLogin: (userInfo: any) => voi
   const totalAmount = expenseItems.reduce((acc, item) => acc + item.amount, 0);
 
   return (
+    <>
     <Container className={isDarkMode ? "bg-dark text-light p-5" : "bg-light"} fluid>
-      {userData && (
-        <Container>
-          <Row className="mb-3">
-            <Col>
-              <Button variant="success" onClick={() => handleShow()}>
-                Add Expense
-                <MdFormatListBulletedAdd size={25} id="addIcon" />
-              </Button>
-            </Col>
-            <Col className="text-end">
-              <h5>{userData.publisherName}'s Total Expenses: ${totalAmount.toFixed(2)}</h5>
-            </Col>
-          </Row>
-        </Container>
-      )}
 
       <Modal show={show} onHide={handleClose} data-bs-theme={isDarkMode ? "dark" : "light"}>
         <Modal.Header closeButton>
@@ -216,6 +202,8 @@ const Dashboard: React.FC<{ isDarkMode: boolean; onLogin: (userInfo: any) => voi
         </Modal.Footer>
       </Modal>
 
+      
+
       {isLoading ? (
         <div className="text-center">
           <Spinner animation="border" variant="primary" />
@@ -224,19 +212,33 @@ const Dashboard: React.FC<{ isDarkMode: boolean; onLogin: (userInfo: any) => voi
       ) : expenseItems.length === 0 ? (
         <h2 className="text-center m-3">No Expense Items Found</h2>
       ) : (
+        
         <Accordion defaultActiveKey="0">
           <Accordion.Item eventKey="0">
-            <Accordion.Header>Expenses</Accordion.Header>
+            <Accordion.Header>
+
+
+
+    
+           
+       
+              <h4 className="m-auto">{userData.publisherName}'s Total Expenses: ${totalAmount.toFixed(2)}</h4>
+       
+              </Accordion.Header>
             <Accordion.Body>
-              <Table striped hover responsive="sm">
+              <Table striped hover responsive>
                 <thead>
-                  <tr>  
-                    <th >
-                    ACTIONS
-                    </th>
-                    <th>DESCRIPTION</th>
-                    <th>AMOUNT</th>
-                    <th>CATEGORY</th>
+                  <tr className="tableHeadFoot">  
+                    <th className="tableHeadFoot" >
+                <Button variant="success" onClick={() => handleShow()}>
+                Add Expense
+                <MdFormatListBulletedAdd size={20} id="addIcon" />
+              </Button>
+              </th >
+                   
+                    <th className="tableHeadFoot">DESCRIPTION</th>
+                    <th className="tableHeadFoot">AMOUNT</th>
+                    <th className="tableHeadFoot">CATEGORY</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -284,14 +286,33 @@ const Dashboard: React.FC<{ isDarkMode: boolean; onLogin: (userInfo: any) => voi
                    
                       </td> */}
                     </tr>
+                    
                   ))}
+                  
                 </tbody>
+                 <tfoot className="tableHeadFoot">
+                         <tr>
+                         <td className="tableHeadFoot"></td>
+                           <td className="tableHeadFoot text-center">Total Expenses</td>
+                          <td className="tableHeadFoot">
+                             $
+                             {expenseItems
+                               .filter((item) => item.isPublished)
+                               .reduce((total, expense) => total + expense.amount, 0)
+                               .toFixed(2)}
+                           </td>
+                           <td className="tableHeadFoot"></td>
+                        
+                         </tr>
+                       </tfoot>
+               
               </Table>
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
       )}
     </Container>
+    </>
   );
 };
 

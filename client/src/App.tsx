@@ -3,7 +3,6 @@ import { Container, Button, Row, Col } from "react-bootstrap";
 import NavBar from "./components/NavBar";
 import CarouselHero from "./components/CarouselHero";
 import Dashboard from "./components/Dashboard";
-import ExpensePage from "./components/ExpensePage";
 import CreateAccount from "./components/CreateAccount";
 import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -70,8 +69,12 @@ const App = () => {
     <>
       <BrowserRouter>
 
-          <Container className="p-0" fluid>
+          <Container className="p-2" fluid>
+            <Row>
+              <Col>
             <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            </Col>
+            </Row>
           </Container>
 
         <Container
@@ -79,23 +82,23 @@ const App = () => {
           className={`${isDarkMode ? "bg-dark text-light" : "bg-light"}`}
           style={{ minHeight: "100vh", padding: "0px" }}
           data-bs-theme={isDarkMode ? "dark" : "light"}
+
         >
 
           {/* <CarouselHero isDarkMode={isDarkMode} />  */}
-          <Row className="">
+          <Row>
             <Col>
-              <h1 className="text-center">Our Expenses</h1>
-            </Col>
-
+    
             {/* Area for our routes to go to different pages */}
             <Routes>
               <Route path="/" element={<Homepage  />} />
-              <Route path="/ExpensePage" element={<ExpensePage />} />
+          
               <Route path="/Login" element={<Login onLogin={handleLogin}/>} />
               <Route path="/CreateAccount" element={<CreateAccount />} /> 
               <Route path="/Dashboard" element={<Dashboard isDarkMode={isDarkMode} onLogin={handleLogin}/>} />
               
             </Routes>
+            </Col>
 
           </Row>
         </Container>

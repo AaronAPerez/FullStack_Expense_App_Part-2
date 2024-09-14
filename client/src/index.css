@@ -71,9 +71,8 @@ body.bg-light {
 } */
 
 .btn.btn-success{
-  width: 15rem;
+  width: 40%;
 padding: 2%;
-margin: 2%;
 border: none;
 }
 
@@ -84,6 +83,15 @@ font-size: large;
 .tableHeadFoot {
 color: #f4f6f2 !important;
 background-color: #030403 !important;
+}
+
+.accordion-header .accordion-button {
+  justify-content: center;
+  text-align: center;
+  display: table-row;
+  color: #dbdad9;
+  font-variant: small-caps;
+  background-color:rgb(8, 81, 92);
 }
 
 
