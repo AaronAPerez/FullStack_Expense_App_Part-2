@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&display=swap'); */
+
 
 .logo {
   color: #5ac15a;
- 
+
 }
 
 
@@ -71,7 +71,6 @@ body.bg-light {
 } */
 
 .btn.btn-success{
-  width: 40%;
 padding: 2%;
 border: none;
 }
@@ -91,13 +90,17 @@ background-color: #030403 !important;
   display: table-row;
   color: #dbdad9;
   font-variant: small-caps;
-  background-color:rgb(8, 81, 92);
+  background-color:rgb(1, 92, 63);
 }
 
+.BoxBackground{
+  background-color: #004d00;
+  z-index: 1;
+}
 
-.text-danger {
+/* .text-danger {
 background-color: #030403;
-}
+} */
 
 /* h1.text-center {
 color: #004d00;
@@ -141,17 +144,13 @@ padding-bottom: 3px;
 
 .btn-success{
 display: block;
-width: 12rem;
-height: 2.8rem;
-font-weight: bold;
+width: 4rem;
 text-decoration: none;
 text-align: center;
 color: #fff;
 background-color: #004d00;
 border-color: #004d00;
 letter-spacing: 1px;
-border: 3px solid #333;
-transition: all 0.35s;
 }
 
 .icon{
@@ -177,8 +176,7 @@ transition: all 0.35s;
 }
 
 .btn-success:hover {
-width: 15rem;
-border: 3px solid #2ecc71;
+border: 3px solid #737373;
 background: rgba(0, 114, 0, 0.856);
 color: #2ecc71;
 }
@@ -186,9 +184,9 @@ color: #2ecc71;
 
 .btn-success:hover + .icon{
 border: 3px solid #0b5a2c;
-right: -25%;
 background-color: black;
 }
+
 .btn-outline-danger {
 color: #8b0000; /* Dark red */
 border-color: #8b0000;

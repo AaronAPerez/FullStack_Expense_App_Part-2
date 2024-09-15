@@ -20,8 +20,7 @@ interface NavBarProps {
 
 const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }: NavBarProps) => {
 
-  const handleLogout = () => 
-  {
+  const handleLogout = () => {
     localStorage.clear();
     // setUser(null);
     setIsLoggedIn(false);
@@ -36,70 +35,49 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }:
         expand="lg"
         data-bs-theme={`${isDarkMode ? "dark" : "light"}`}
         className={`${isDarkMode ? "bg-dark text-light" : "bg-body-tertiary"}`}
-        fixed="top"
-       
+        // fixed="top"
       >
-       
         <Container>
-
-       <Nav.Link> 
-        <Navbar.Brand as={Link} to={"/"}>Daily Expenses</Navbar.Brand>
-        </Nav.Link> 
-         
-  
-
+          <Nav.Link>
+            <Navbar.Brand as={Link} to={"/"}>Daily Expenses</Navbar.Brand>
+          </Nav.Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               {isLoggedIn && (
                 <>
-              
-      
-               {/* <Nav.Link as={Link} to={"/"}>
-                
-                </Nav.Link> 
-               <Nav.Link as={Link} to={"/ExpensePage"}>
-                Expense Page
-              </Nav.Link>  */}
-              <Nav.Link as={Link} to="/Dashboard">
-                Dashboard
-              </Nav.Link>
-              </>
+                  <Nav.Link as={Link} to="/Dashboard">
+                    Dashboard
+                  </Nav.Link>
+                </>
               )}
             </Nav>
-            
+
             <Nav className="welcome">
-                
-            <Nav.Link onClick={toggleDarkMode}>
-        
-            {/* <Nav.Link href="#deets"> */}
-                {isDarkMode ? (<IoSunnyOutline onClick={toggleDarkMode} fontSize={25} />
 
-                  
-                ) : (
-                  <FaRegMoon onClick={toggleDarkMode} fontSize={20} />
-                )}
-            </Nav.Link> 
+              <Nav.Link onClick={toggleDarkMode}>
+                {isDarkMode ? <IoSunnyOutline fontSize={25} /> : <FaRegMoon fontSize={20} />}
+              </Nav.Link>
 
-            {!isLoggedIn ? (
-              <>
-                <Nav.Link as={Link} to="/CreateAccount">Create Account</Nav.Link>
-                <Nav.Link as={Link} to="/Login">Login</Nav.Link>
-              </>
-            ) : (
-              <Nav.Link as={Link} to="/Login" onClick={handleLogout}>Logout</Nav.Link>
-            )}
-            {isLoggedIn && (
-              <>
-                <Nav.Link>Welcome {user? user.publisherName:"Guest"}</Nav.Link>
-                <Nav.Link>
+              {!isLoggedIn ? (
+                <>
+                  <Nav.Link as={Link} to="/CreateAccount">Create Account</Nav.Link>
+                  <Nav.Link as={Link} to="/Login">Login</Nav.Link>
+                </>
+              ) : (
+                <Nav.Link as={Link} to="/Login" onClick={handleLogout}>Logout</Nav.Link>
+              )}
+              {isLoggedIn && (
+                <>
+                  <Nav.Link>Welcome {user ? user.publisherName : "Guest"}</Nav.Link>
+                  {/* <Nav.Link>
                   <Image className="profilepic" src={Monopoly} roundedCircle />
-                </Nav.Link>
-              
-              </>
-            )}
+                </Nav.Link> */}
+
+                </>
+              )}
             </Nav>
-         
+
           </Navbar.Collapse>
         </Container>
       </Navbar>

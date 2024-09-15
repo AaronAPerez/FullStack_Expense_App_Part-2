@@ -1,5 +1,5 @@
 import { useState, useEffect, SetStateAction } from "react";
-import { Container, Button, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import NavBar from "./components/NavBar";
 import CarouselHero from "./components/CarouselHero";
 import Dashboard from "./components/Dashboard";
@@ -64,45 +64,36 @@ const App = () => {
     setIsDarkMode(prevMode => !prevMode);
   };
 
- 
+
   return (
     <>
       <BrowserRouter>
-
-          <Container className="p-2" fluid>
-            <Row>
-              <Col>
-            <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-            </Col>
-            </Row>
-          </Container>
+        <Container className="p-0" fluid>
+          <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        </Container>
 
         <Container
           fluid
           className={`${isDarkMode ? "bg-dark text-light" : "bg-light"}`}
           style={{ minHeight: "100vh", padding: "0px" }}
           data-bs-theme={isDarkMode ? "dark" : "light"}
-
         >
-
-          {/* <CarouselHero isDarkMode={isDarkMode} />  */}
           <Row>
             <Col>
-    
-            {/* Area for our routes to go to different pages */}
-            <Routes>
-              <Route path="/" element={<Homepage  />} />
-          
-              <Route path="/Login" element={<Login onLogin={handleLogin}/>} />
-              <Route path="/CreateAccount" element={<CreateAccount />} /> 
-              <Route path="/Dashboard" element={<Dashboard isDarkMode={isDarkMode} onLogin={handleLogin}/>} />
-              
-            </Routes>
+              {/* Area for our routes to go to different pages */}
+              <Routes>
+                <Route path="/" element={<Homepage />} />
+
+                <Route path="/Login" element={<Login onLogin={handleLogin} />} />
+                <Route path="/CreateAccount" element={<CreateAccount />} />
+                <Route path="/Dashboard" element={<Dashboard isDarkMode={isDarkMode} onLogin={handleLogin} />} />
+
+              </Routes>
             </Col>
 
           </Row>
         </Container>
-        <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer position="top-right" autoClose={2500} />
       </BrowserRouter>
     </>
   );
@@ -110,116 +101,3 @@ const App = () => {
 
 export default App;
 
-
-  {/* const visibleExpenses = selectedCategory
-
-            ? expenses.filter((expense) => expense.category === selectedCategory)
-            : expenses;
-
-          const fetchData = () => {
-            axios
-              .get<Expense[]>(`${BASE_URL}GetExpenseItems`)
-              .then(response =>
-                setExpenses(response.data)) // Update the Expenses state with the fetched data
-              .catch((error) => setError(error.message)); // Set the error message if an error occurs
-          
-          */}
-
-
-
-
-          // // const handleDelete = (id: number) => {
-          // //   axios
-          // //     .delete(`${BASE_URL}${id}`)
-          // //     .then(() => {
-          // //       setExpenses(expenses.filter((expense) => expense.id !== id));
-          // //       fetchData();
-          // //     })
-          // //     .catch(error => {
-          // //       console.log(error);
-          // //       setError('Error deleting expense');
-          // //     });
-          // // };
-
-          // // useEffect(() => {
-          // //   fetchData();
-          // // }, []); /*}
-
-
-//   return (
-//     <>
-//       <BrowserRouter>
-
-//           <Container className="p-0" fluid>
-//             <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-//           </Container>
-
-//           <Container
-//           fluid
-//           className={`${isDarkMode ? "bg-dark text-light" : "bg-light"}`}
-//           style={{ minHeight: "100vh", padding: "0px" }}
-//         >
-
-//           <CarouselHero isDarkMode={isDarkMode} />
-//           <Row className="text-center">
-//             <Col>
-//               <h1>Our Expenses</h1>
-//             </Col>
-
-//             {/* Area for our routes to go to different pages */}
-//             <Routes>
-
-//               <Route path="/" element={<BlogPage />} />
-//               {/* <Route path="/Login" element={<Login />} />*/}
-//               <Route path="/CreateAccount" element={<CreateAccount />} /> 
-//               <Route path="/Dashboard" element={<Dashboard isDarkMode={isDarkMode}/>} />
-//               {/* <Route path="/Dashboard" element={<Dashboard isDarkMode={isDarkMode} onLogin={handleLogin} />} /> */}
-//             </Routes>
-
-//           </Row>
-//         </Container>
-//       </BrowserRouter>
-//     </>
-//   );
-// };
-
-// export default App;
-
-////////////////////////////
-
-{/*<div className="container">
-
-          <header className="py-2 border-bottom">
-            <h1 className="text-center">
-              EXPENSE TR
-              <FaPiggyBank size={52} color="pink" />
-              CKER
-            </h1>
-          </header>
-          <div className="main">
-            <div className="row">
-              <div className="col-md-4">
-                <ExpenseForm fetchData={fetchData} currentData={setExpenses} />
-              </div>
-              <div className="col-md-8 pt-2">
-                <ExpenseFilter
-                  onSelectCategory={(category) => setSelectedCategory(category)}
-                />
-                <ExpenseList
-                  expenses={visibleExpenses}
-                  fetchData={fetchData}
-                  onDelete={handleDelete}
-                  category={selectedCategory}
-
-                />
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-//       </BrowserRouter>
-//     </>
-//   );
-// };
-
-// export default App;
