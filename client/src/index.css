@@ -8,24 +8,28 @@
 }
 
 
+
 body {
 font-family: 'Roboto',sans-serif!important;
-background-image: url('./assets/images/Money-Benjamin-unsplash.jpg');
+background-image: url('./assets/images/MonyBillsBackground.jpg');
 background-position: center;
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;
 /* font-family: "Besley", serif; */
+z-index: -1;
 }
 
 body.bg-dark {
-  background-color: #343a40 !important;
+  background-color: #000000 !important;
   color: rgb(174, 168, 168) !important;
+ opacity: 92%;
 }
 
 body.bg-light {
   background-color: #aaa9a9 !important;
   color: rgb(53, 48, 48) !important;
+  opacity: 92%;
 }
 
 .welcome {
@@ -37,15 +41,17 @@ body.bg-light {
   width: 40px;
   height: 40px;
 }
+
+
   
 .CItem {
-    background: black;
     overflow: hidden;
   }
 
 .carouselImage {
     object-fit: cover;
-    height: 500px;
+    height: 400px;
+    border-radius: 90px;
     /* opacity: 0.6; */
   }
 
@@ -71,8 +77,7 @@ body.bg-light {
 } */
 
 .btn.btn-success{
-padding: 2%;
-border: none;
+padding: 1%;
 }
 
 td{
@@ -81,7 +86,7 @@ font-size: large;
 
 .tableHeadFoot {
 color: #f4f6f2 !important;
-background-color: #030403 !important;
+background-color: #2b2c2b !important;
 }
 
 .accordion-header .accordion-button {
@@ -90,12 +95,12 @@ background-color: #030403 !important;
   display: table-row;
   color: #dbdad9;
   font-variant: small-caps;
-  background-color:rgb(1, 92, 63);
+  background-color:rgb(168, 74, 7);
 }
 
 .BoxBackground{
   background-color: #004d00;
-  z-index: 1;
+
 }
 
 /* .text-danger {
@@ -128,32 +133,28 @@ background-color: #000000;
 }
 
 
-.wrapper{
-/* position: fixed; */
+/* .wrapper{
+position: fixed;
 position: absolute;
 }
 
 .link_wrapper{
 position: relative;
-}
+} */
 
 #addIcon{
 padding-bottom: 3px;
 }
 
-
-.btn-success{
-display: block;
-width: 4rem;
-text-decoration: none;
-text-align: center;
-color: #fff;
-background-color: #004d00;
-border-color: #004d00;
-letter-spacing: 1px;
+.AddBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.icon{
+
+
+/* .icon{
 width: 50px;
 height: 50px;
 border: 3px solid transparent;
@@ -173,12 +174,11 @@ left: calc(50% - 15px);
 transform: rotate(-45deg);
 fill: #2ecc71;
 transition: all 0.35s;
-}
+} */
 
 .btn-success:hover {
-border: 3px solid #737373;
+border: 1px solid #c97e15;
 background: rgba(0, 114, 0, 0.856);
-color: #2ecc71;
 }
 
 

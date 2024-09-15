@@ -146,11 +146,12 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
 
   return (
     <>
-      <Container className={isDarkMode ? "bg-dark text-light p-4" : "bg-light text-dark p-4"} fluid>
-        <Modal  
-        data-bs-theme={isDarkMode ? "dark" : "light"}
-        show={show} 
-        onHide={handleClose}
+      <Container className={isDarkMode ? "bg-dark text-light p-2 my-2" : "bg-light text-dark p-2 my-2"}>
+
+        <Modal
+          data-bs-theme={isDarkMode ? "dark" : "light"}
+          show={show}
+          onHide={handleClose}
         >
           <Modal.Header closeButton>
             <Modal.Title>{edit ? "Edit" : "Add"} Expense Item</Modal.Title>
@@ -198,10 +199,10 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="outline-secondary" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="success" onClick={handleSubmit(onSubmit)}>
+            <Button variant="outline-primary" onClick={handleSubmit(onSubmit)}>
               Save
             </Button>
           </Modal.Footer>
@@ -212,19 +213,37 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
             <h2>Loading...</h2>
           </div>
         ) : expenseItems.length === 0 ? (
-          <h2 className="text-center m-3">No Expense Items Found</h2>
+          <Container>
+            <Row>
+              <Col>
+                <h2 className="text-center m-3">No Expense Items Found
+                </h2>
+              </Col>
+            </Row>
+            <Container className="AddBtn">
+              <Row>
+                <Col>
+                  <Button variant="outline-primary" onClick={() => handleShow()} >
+                    <MdFormatListBulletedAdd size={50} id="addIcon" title="Add Expense" />
+                  </Button>
+
+                </Col>
+              </Row>
+            </Container>
+          </Container>
         ) : (
+
           <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="0">
               <Accordion.Header>
                 <h3 className="my-1">{userData.publisherName}'s Total Expenses: ${totalAmount.toFixed(2)}</h3>
               </Accordion.Header>
               <Accordion.Body>
-                <Table striped hover responsive>
+                <Table className="striped hover responsive">
                   <thead>
-                    <tr className="tableHeadFoot">
+                    <tr>
                       <th className="tableHeadFoot" >
-                        <Button variant="success" onClick={() => handleShow()}>
+                        <Button variant="primary" onClick={() => handleShow()}>
                           Add
                           <MdFormatListBulletedAdd size={20} id="addIcon" />
                         </Button>
