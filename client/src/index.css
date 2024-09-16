@@ -3,45 +3,77 @@
 
 
 .logo {
-  color: #5ac15a;
-
+  color: hsl(0, 0%, 91%);
+  text-decoration: underline;
+  font-weight: 600;
+  text-decoration-color: #c49a1c;
+  font-family: 'Roboto',sans-serif!important;
 }
+
+a.nav-link{
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-family: 'Roboto',sans-serif!important;
+  color: whitesmoke;
+}
+
+.nav-brand{
+  display: flex;
+  font-size: 2rem;
+text-decoration: underline;
+}
+
 
 
 
 body {
 font-family: 'Roboto',sans-serif!important;
-background-image: url('./assets/images/MonyBillsBackground.jpg');
+background-image: url('./assets/images/giorgio-trovato-BRl69uNXr7g-unsplash.jpg');
 background-position: center;
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;
 /* font-family: "Besley", serif; */
-z-index: -1;
 }
 
 body.bg-dark {
   background-color: #000000 !important;
   color: rgb(174, 168, 168) !important;
- opacity: 92%;
+ opacity: 95%;
 }
 
 body.bg-light {
-  background-color: #aaa9a9 !important;
-  color: rgb(53, 48, 48) !important;
-  opacity: 92%;
+  background-color: #eaeaea !important;
+  color: rgb(0, 0, 0) !important;
+  opacity: 90%;
 }
 
-.welcome {
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu {
+  min-width: auto;
+}
+
+.welcome a.navbar-brand a.nav-link {
   display: flex;
   align-items: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+a.navbar-brand, .nav-link {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 500;
 }
 
 .profilepic {
   width: 40px;
   height: 40px;
 }
-
 
   
 .CItem {
@@ -50,13 +82,16 @@ body.bg-light {
 
 .carouselImage {
     object-fit: cover;
-    height: 400px;
+    height: 450px;
     border-radius: 90px;
     /* opacity: 0.6; */
   }
 
   .form-container {
     /* background-color: #fff; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: solid rgb(118, 118, 118) 1px;
     border-radius: 0 0 8px 8px;
     border-top: 1px solid #dadde1;
@@ -80,13 +115,17 @@ body.bg-light {
 padding: 1%;
 }
 
-td{
-font-size: large;
+.tableHeadFoot {
+background-color: #2b2c2b !important;
+font-variant: small-caps;
+font-weight: 700;
+font-size: 1.2rem;
 }
 
-.tableHeadFoot {
-color: #f4f6f2 !important;
+tr {
 background-color: #2b2c2b !important;
+font-weight: 700;
+font-size: 1.2rem;
 }
 
 .accordion-header .accordion-button {

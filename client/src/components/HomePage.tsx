@@ -20,7 +20,7 @@ const Homepage = () => {
             </Link>
           </Col>
 
-          <Col md={8} className="my-4 py-4 text-center">
+          <Col md={8} className="my-1 py-4 text-center">
             <CarouselHero isDarkMode={false} />
           </Col>
 

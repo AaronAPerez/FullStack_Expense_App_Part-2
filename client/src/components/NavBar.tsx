@@ -2,8 +2,11 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { IoSunnyOutline } from 'react-icons/io5';
-import { FaRegMoon } from 'react-icons/fa';
+import { FaPiggyBank, FaRegMoon } from 'react-icons/fa';
 import Monopoly from '../assets/images/Monopoly- 2024-09-07 210940.png'
+import Sun from '../assets/images/weather-sun-icon-10.jpg'
+import Moon from '../assets/images/Weather_icon_-_full_moon.svg.png'
+import logo from '../assets/images/BanKGold.png'
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -33,14 +36,15 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }:
       <Navbar
         collapseOnSelect
         expand="lg"
-        data-bs-theme={`${isDarkMode ? "dark" : "light"}`}
+        data-bs-theme={`${isDarkMode ? "dark" : "light" }`}
         className={`${isDarkMode ? "bg-dark text-light" : "bg-body-tertiary"}`}
         // fixed="top"
       >
         <Container>
-          <Nav.Link>
-            <Navbar.Brand as={Link} to={"/"}>Daily Expenses</Navbar.Brand>
-          </Nav.Link>
+            <Navbar.Brand as={Link} to={"/"} className="logo">EXPENSE  <img src={logo} width={40}/> TRACKER
+            {/* <FaPiggyBank color="pink"/> */}
+            </Navbar.Brand>
+         
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -56,7 +60,7 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }:
             <Nav className="welcome">
 
               <Nav.Link onClick={toggleDarkMode}>
-                {isDarkMode ? <IoSunnyOutline fontSize={25} /> : <FaRegMoon fontSize={20} />}
+                {isDarkMode ? <img src={Sun} className="SunImg" width={30}/> : <img src={Moon} width={30} />}
               </Nav.Link>
 
               {!isLoggedIn ? (
@@ -70,9 +74,9 @@ const NavBar = ({ isDarkMode, toggleDarkMode, user, isLoggedIn, setIsLoggedIn }:
               {isLoggedIn && (
                 <>
                   <Nav.Link>Welcome {user ? user.publisherName : "Guest"}</Nav.Link>
-                  {/* <Nav.Link>
+                    <Nav.Link>
                   <Image className="profilepic" src={Monopoly} roundedCircle />
-                </Nav.Link> */}
+                </Nav.Link>  
 
                 </>
               )}

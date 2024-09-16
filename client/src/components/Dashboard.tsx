@@ -146,7 +146,7 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
 
   return (
     <>
-      <Container className={isDarkMode ? "bg-dark text-light p-2 my-2" : "bg-light text-dark p-2 my-2"}>
+      <Container className={isDarkMode ? "bg-dark text-light p-2" : "bg-light text-dark p-2"}>
 
         <Modal
           data-bs-theme={isDarkMode ? "dark" : "light"}
