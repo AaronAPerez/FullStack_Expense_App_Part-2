@@ -67,19 +67,17 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <Container className="p-0" fluid>
-          <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-        </Container>
-
-        <Container
-          fluid
-          className={`${isDarkMode ? "bg-dark text-light" : "bg-light"}`}
+      <BrowserRouter>  
+      <Container fluid className={`${isDarkMode ? "bg-dark text-light" : "bg-light"}`}
           style={{ minHeight: "100vh", padding: "0px" }}
-          data-bs-theme={isDarkMode ? "dark" : "light"}
-        >
-          <Row>
-            <Col>
+          
+          data-bs-theme={isDarkMode ? "dark" : "light"}>
+     
+
+          <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+       
+
+      
               {/* Area for our routes to go to different pages */}
               <Routes>
                 <Route path="/" element={<Homepage />} />
@@ -89,9 +87,7 @@ const App = () => {
                 <Route path="/Dashboard" element={<Dashboard isDarkMode={isDarkMode} onLogin={handleLogin} />} />
 
               </Routes>
-            </Col>
-
-          </Row>
+     
         </Container>
         <ToastContainer position="top-right" autoClose={2500} />
       </BrowserRouter>

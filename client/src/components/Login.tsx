@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { GetLoggedInUser, login } from "../Services/DataService";
+import { getLoggedInUser, login } from "../Services/DataService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -39,7 +39,7 @@ const Login = ({ onLogin }) => {
     console.log(token.token, "This should log the token");
     if (token.token != null) {
       localStorage.setItem("Token", token.token);
-      await GetLoggedInUser(data.username);
+      await getLoggedInUser(data.username);
       toast.success(`Welcome back, ${data.username}!`);
       navigate('/Dashboard');
     } else {

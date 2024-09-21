@@ -3,24 +3,25 @@
 
 
 .logo {
-  color: hsl(0, 0%, 91%);
-  text-decoration: underline;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  text-decoration: underline 5px;
+  font-weight: 700;
   text-decoration-color: #c49a1c;
   font-family: 'Roboto',sans-serif!important;
+  padding-bottom: 6px;
 }
 
 a.nav-link{
   display: flex;
   align-items: center;
-  font-size: 1.5rem;
   font-family: 'Roboto',sans-serif!important;
-  color: whitesmoke;
+  margin-inline: 10px;
 }
 
 .nav-brand{
   display: flex;
-  font-size: 2rem;
 text-decoration: underline;
 }
 
@@ -34,19 +35,21 @@ background-position: center;
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;
+z-index: -1;
 /* font-family: "Besley", serif; */
 }
 
 body.bg-dark {
   background-color: #000000 !important;
   color: rgb(174, 168, 168) !important;
- opacity: 95%;
+ opacity: 97%;
+
 }
 
 body.bg-light {
   background-color: #eaeaea !important;
   color: rgb(0, 0, 0) !important;
-  opacity: 90%;
+  opacity: 95%;
 }
 
 .dropdown-toggle::after {
@@ -57,12 +60,8 @@ body.bg-light {
   min-width: auto;
 }
 
-.welcome a.navbar-brand a.nav-link {
-  display: flex;
-  align-items: center;
-  font-size: 1.4rem;
-  font-weight: 500;
-}
+
+
 a.navbar-brand, .nav-link {
   display: flex;
   align-items: center;
@@ -75,6 +74,26 @@ a.navbar-brand, .nav-link {
   height: 40px;
 }
 
+.HomePage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Table{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AccordionTable{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
   
 .CItem {
     overflow: hidden;
@@ -82,7 +101,7 @@ a.navbar-brand, .nav-link {
 
 .carouselImage {
     object-fit: cover;
-    height: 450px;
+    height: auto;
     border-radius: 90px;
     /* opacity: 0.6; */
   }
@@ -116,7 +135,7 @@ padding: 1%;
 }
 
 .tableHeadFoot {
-background-color: #2b2c2b !important;
+
 font-variant: small-caps;
 font-weight: 700;
 font-size: 1.2rem;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container, Button, Modal, Form, Accordion, Spinner, Row, Col, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -6,10 +6,10 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
-  AddExpenseItems,
+  addExpenseItems,
   checkToken,
-  GetItemsByUserId,
-  LoggedInData,
+  getItemsByUserId,
+  getLoggedInUserData,
   updateExpenseItems,
 } from "../Services/DataService";
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -55,12 +55,12 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
   });
 
   const loadUserData = async () => {
-    let userInfo = LoggedInData();
+    let userInfo = getLoggedInUserData();
     onLogin(userInfo);
     setUserId(userInfo.userId);
     setUserData(userInfo);
     try {
-      let userExpenseItems = await GetItemsByUserId(userInfo.userId);
+      let userExpenseItems = await getItemsByUserId(userInfo.userId);
       setExpenseItems(userExpenseItems);
     } catch (error) {
       console.error("Error fetching expense items:", error);
@@ -94,10 +94,10 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
     try {
       const result = edit
         ? await updateExpenseItems(expenseData)
-        : await AddExpenseItems(expenseData);
+        : await addExpenseItems(expenseData);
 
       if (result) {
-        let userExpenseItems = await GetItemsByUserId(userId);
+        let userExpenseItems = await getItemsByUserId(userId);
         setExpenseItems(userExpenseItems);
         toast.success(edit ? "Expense updated successfully" : "Expense added successfully");
         handleClose();
@@ -133,7 +133,7 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
     try {
       const updatedItem = { ...item, isDeleted: true };
       await updateExpenseItems(updatedItem);
-      let userExpenseItems = await GetItemsByUserId(userId);
+      let userExpenseItems = await getItemsByUserId(userId);
       setExpenseItems(userExpenseItems);
       toast.success("Expense deleted successfully");
     } catch (error) {
@@ -146,7 +146,7 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
 
   return (
     <>
-      <Container className={isDarkMode ? "bg-dark text-light p-2" : "bg-light text-dark p-2"}>
+      <Container className={isDarkMode ? "bg-dark text-light" : "bg-light text-dark"}>
 
         <Modal
           data-bs-theme={isDarkMode ? "dark" : "light"}
@@ -207,67 +207,70 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
             </Button>
           </Modal.Footer>
         </Modal>
-        {isLoading ? (
-          <div className="text-center">
-            <Spinner animation="border" variant="primary" />
-            <h2>Loading...</h2>
-          </div>
-        ) : expenseItems.length === 0 ? (
-          <Container>
-            <Row>
-              <Col>
-                <h2 className="text-center m-3">No Expense Items Found
-                </h2>
-              </Col>
-            </Row>
-            <Container className="AddBtn">
+        <Container>
+          {isLoading ? (
+            <div className="text-center">
+              <Spinner animation="border" variant="primary" />
+              <h2>Loading...</h2>
+            </div>
+          ) : expenseItems.length === 0 ? (
+            <Container>
               <Row>
                 <Col>
-                  <Button variant="outline-primary" onClick={() => handleShow()} >
-                    <MdFormatListBulletedAdd size={50} id="addIcon" title="Add Expense" />
-                  </Button>
-
+                  <h2 className="text-center m-3">No Expense Items Found
+                  </h2>
                 </Col>
               </Row>
+              <Container className="AddBtn">
+                <Row>
+                  <Col>
+                    <Button variant="outline-primary" onClick={() => handleShow()} >
+                      <MdFormatListBulletedAdd size={50} id="addIcon" title="Add Expense" />
+                    </Button>
+
+                  </Col>
+                </Row>
+              </Container>
             </Container>
-          </Container>
-        ) : (
 
-          <Accordion defaultActiveKey="0">
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>
-                <h3 className="my-1">{userData.publisherName}'s Total Expenses: ${totalAmount.toFixed(2)}</h3>
-              </Accordion.Header>
-              <Accordion.Body>
-                <Table className="striped hover responsive">
-                  <thead>
-                    <tr>
-                      <th className="tableHeadFoot" >
-                        <Button variant="primary" onClick={() => handleShow()}>
-                          Add
-                          <MdFormatListBulletedAdd size={20} id="addIcon" />
-                        </Button>
-                      </th >
+          ) : (
 
-                      <th className="tableHeadFoot">DESCRIPTION</th>
-                      <th className="tableHeadFoot">AMOUNT</th>
-                      <th className="tableHeadFoot">CATEGORY</th>
-                      <th className="tableHeadFoot"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {expenseItems.map((expense) => (
-                      <tr key={expense.id}>
-                        <td>
-                          <Button
-                            variant="outline-none"
-                            onClick={() => handleShow(expense)}
-                            title="Edit"
-                            className="ms-2"
-                          >
-                            <GrEdit size={25} color="orange" />
+
+            <Accordion defaultActiveKey="0">
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>
+                  <h3 className="my-1">{userData.publisherName}'s Total Expenses: ${totalAmount.toFixed(2)}</h3>
+                </Accordion.Header>
+                <Accordion.Body>
+                  <Table className="striped hover responsive">
+                    <thead>
+                      <tr>
+                        <th className="tableHeadFoot" >
+                          <Button variant="outline-primary" onClick={() => handleShow()}>
+                            Add
+                            <MdFormatListBulletedAdd size={20} id="addIcon" />
                           </Button>
-                          {/* <Button
+                        </th >
+
+                        <th className="tableHeadFoot">DESCRIPTION</th>
+                        <th className="tableHeadFoot">AMOUNT</th>
+                        <th className="tableHeadFoot">CATEGORY</th>
+                        <th className="tableHeadFoot"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {expenseItems.map((expense) => (
+                        <tr key={expense.id}>
+                          <td>
+                            <Button
+                              variant="outline-none"
+                              onClick={() => handleShow(expense)}
+                              title="Edit"
+                              className="ms-2"
+                            >
+                              <GrEdit size={25} color="orange" />
+                            </Button>
+                            {/* <Button
                           variant="outline-none"
                           onClick={() => handleDelete(expense)}
                           title="Delete"
@@ -276,12 +279,12 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
                           <FaRegTrashCan size={25} color="red"/>
                         </Button> */}
 
-                        </td>
-                        <td>{expense.description}</td>
-                        <td>${expense.amount.toFixed(2)}</td>
-                        <td>{expense.category}</td>
-                        <td>
-                          {/* <Button
+                          </td>
+                          <td>{expense.description}</td>
+                          <td>${expense.amount.toFixed(2)}</td>
+                          <td>{expense.category}</td>
+                          <td>
+                            {/* <Button
                           variant="outline-none"
                           onClick={() => handleShow(expense)}
                           title="Edit"
@@ -289,41 +292,42 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
                         >
                           <GrEdit size={25} color="orange" />
                         </Button> */}
-                          <Button
-                            variant="outline-none"
-                            onClick={() => handleDelete(expense)}
-                            title="Delete"
-                            className="p-0"
-                          >
-                            <FaRegTrashCan size={25} color="red" />
-                          </Button>
+                            <Button
+                              variant="outline-none"
+                              onClick={() => handleDelete(expense)}
+                              title="Delete"
+                              className="p-0"
+                            >
+                              <FaRegTrashCan size={25} color="red" />
+                            </Button>
 
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                    <tfoot className="tableHeadFoot">
+                      <tr>
+                        <td className="tableHeadFoot"></td>
+                        <td className="tableHeadFoot"></td>
+                        <td className="tableHeadFoot">
+                          $
+                          {expenseItems
+                            .filter((item) => item.isPublished)
+                            .reduce((total, expense) => total + expense.amount, 0)
+                            .toFixed(2)}
                         </td>
+                        <td className="tableHeadFoot"></td>
+
+                        <th className="tableHeadFoot"></th>
                       </tr>
-                    ))}
-                  </tbody>
-                  <tfoot className="tableHeadFoot">
-                    <tr>
-                      <td className="tableHeadFoot"></td>
-                      <td className="tableHeadFoot"></td>
-                      <td className="tableHeadFoot">
-                        $
-                        {expenseItems
-                          .filter((item) => item.isPublished)
-                          .reduce((total, expense) => total + expense.amount, 0)
-                          .toFixed(2)}
-                      </td>
-                      <td className="tableHeadFoot"></td>
+                    </tfoot>
+                  </Table>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
 
-                      <th className="tableHeadFoot"></th>
-                    </tr>
-                  </tfoot>
-                </Table>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-
-        )}
+          )}
+        </Container>
       </Container>
     </>
   );

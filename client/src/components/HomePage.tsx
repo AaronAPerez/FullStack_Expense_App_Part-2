@@ -8,7 +8,7 @@ const Homepage = () => {
     <>
       <Container>
         <Row>
-          <Col md={4} className="mt-5 py-4">
+          <Col className="my-2 py-4">
             <h1>Welcome to Money Management</h1>
             <p className="lead">
               Track, manage, and optimize your daily expenses with ease.
@@ -20,17 +20,10 @@ const Homepage = () => {
             </Link>
           </Col>
 
-          <Col md={8} className="my-1 py-4 text-center">
-            <CarouselHero isDarkMode={false} />
+          <Col md={8} className="my-2 py-3 text-center">
+            <CarouselHero isDarkMode={true} />
           </Col>
-
-
         </Row>
-
-
-
-
-
       </Container>
 
     </>
