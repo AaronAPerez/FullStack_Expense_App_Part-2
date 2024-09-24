@@ -1,15 +1,20 @@
-import { Container, Row, Col, Button, Card, Image } from 'react-bootstrap';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import CarouselHero from './CarouselHero';
-import money from '../assets/images/finance-background-uqu7wvtfbn9hx8vt.jpg'
+import { CardBody } from 'react-bootstrap';
 
 const Homepage = () => {
   return (
     <>
-      <Container>
-        <Row>
-          <Col className="my-2 py-4">
-            <h1>Welcome to Money Management</h1>
+  
+        <Card className='HomePageCard'>
+        <Row g-0>
+          <Col md={4} className="my-2 py-2">
+          <CardBody>
+            <h2 className='my-4'>Welcome to Money Management</h2>
             <p className="lead">
               Track, manage, and optimize your daily expenses with ease.
             </p>
@@ -18,13 +23,15 @@ const Homepage = () => {
                 Get Started
               </Button>
             </Link>
+            </CardBody>
           </Col>
 
           <Col md={8} className="my-2 py-3 text-center">
             <CarouselHero isDarkMode={true} />
           </Col>
         </Row>
-      </Container>
+        </Card>
+     
 
     </>
   );

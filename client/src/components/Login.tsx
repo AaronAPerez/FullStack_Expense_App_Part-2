@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../hooks/UselocalStorage";
 import { getLoggedInUser, login } from "../Services/DataService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -24,6 +25,7 @@ type FormData = z.infer<typeof schema>;
 
 
 const Login = ({ onLogin }) => {
+  const { setItem: setUserLocalStorage } = useLocalStorage("user");
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -39,7 +41,9 @@ const Login = ({ onLogin }) => {
     console.log(token.token, "This should log the token");
     if (token.token != null) {
       localStorage.setItem("Token", token.token);
-      await getLoggedInUser(data.username);
+      const userInfo = await getLoggedInUser(data.username);
+      setUserLocalStorage(userInfo);
+      onLogin(userInfo);
       toast.success(`Welcome back, ${data.username}!`);
       navigate('/Dashboard');
     } else {
@@ -47,11 +51,12 @@ const Login = ({ onLogin }) => {
     }
   };
 
+
   return (
     <>
       <Container>
         <Row>
-          <Col className="form-container d-flex justify-content-center">
+          <Col className="form-container">
             <Form onSubmit={handleSubmit(onSubmit)}>
               <p className="text-center">Login</p>
               <Form.Group className="mb-3" controlId="Username">

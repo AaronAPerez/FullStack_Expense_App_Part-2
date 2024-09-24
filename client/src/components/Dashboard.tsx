@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Container, Button, Modal, Form, Accordion, Spinner, Row, Col, Table } from "react-bootstrap";
+import { Container, Button, Modal, Form, Spinner, Row, Col, Table } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useForm } from 'react-hook-form';
@@ -15,6 +16,10 @@ import {
 import { FaRegTrashCan } from "react-icons/fa6";
 import { GrEdit } from "react-icons/gr";
 import { MdFormatListBulletedAdd } from "react-icons/md";
+import { IoMdAddCircle } from "react-icons/io";
+import ExpenseFilter from "./ExpenseFilter";
+import { useLocalStorage } from "../hooks/UselocalStorage";
+
 
 const schema = z.object({
   description: z.string().min(1, { message: "Required field" }),
@@ -34,15 +39,17 @@ interface Expense {
   isDeleted: boolean;
 }
 
-const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
+const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (userInfo: any) => void }) => {
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState<number | null>(null);
   const [userId, setUserId] = useState(0);
   const [userData, setUserData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [expenseItems, setExpenseItems] = useState<Expense[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const navigate = useNavigate();
+  const { setItem: setUserLocalStorage, getItem: getUserLocalStorage } = useLocalStorage("user");
 
   const {
     register,
@@ -55,10 +62,15 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
   });
 
   const loadUserData = async () => {
-    let userInfo = getLoggedInUserData();
+    let userInfo = getUserLocalStorage() || getLoggedInUserData();
+    if (!userInfo) {
+      navigate("/Login");
+      return;
+    }
     onLogin(userInfo);
     setUserId(userInfo.userId);
     setUserData(userInfo);
+    setUserLocalStorage(userInfo);
     try {
       let userExpenseItems = await getItemsByUserId(userInfo.userId);
       setExpenseItems(userExpenseItems);
@@ -144,23 +156,27 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
 
   const totalAmount = expenseItems.reduce((acc, item) => acc + item.amount, 0);
 
+  const visibleExpenses = selectedCategory
+    ? expenseItems.filter((expense) => expense.category === selectedCategory)
+    : expenseItems;
+
   return (
     <>
-      <Container className={isDarkMode ? "bg-dark text-light" : "bg-light text-dark"}>
-
+      <Container className={isDarkMode ? "bg-dark text-light" : "bg-light"}>
         <Modal
           data-bs-theme={isDarkMode ? "dark" : "light"}
           show={show}
           onHide={handleClose}
         >
-          <Modal.Header closeButton>
-            <Modal.Title>{edit ? "Edit" : "Add"} Expense Item</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-              <Form.Group className="mb-3" controlId="Description">
-                <Form.Label>Description</Form.Label>
-                <Form.Control
+    
+                  <Modal.Header closeButton>
+             <Modal.Title>{edit ? "Edit" : "Add"} Expense Item</Modal.Title>
+           </Modal.Header>
+           <Modal.Body>
+             <Form onSubmit={handleSubmit(onSubmit)}>
+               <Form.Group className="mb-3" controlId="Description">
+                 <Form.Label>Description</Form.Label>
+                 <Form.Control
                   as="textarea"
                   placeholder="Enter Description"
                   {...register("description")}
@@ -190,8 +206,19 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
                   <option value="Utilities">Utilities</option>
                   <option value="Entertainment">Entertainment</option>
                   <option value="Shopping">Shopping</option>
-                  <option value="Shopping">Other</option>
+                  <option value="Other">Other</option>
                 </Form.Select>
+                {/* <Form.Select {...register("category")}
+                  id="category"
+                  className="form-select"
+                >
+                  <option value="">Select Category</option>
+                  <option value="Groceries">Groceries</option>
+                  <option value="Utilities">Utilities</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Shopping">Shopping</option>
+                  <option value="Other">Other</option>
+                </Form.Select> */}
                 {errors.category && (
                   <p className="text-danger">{errors.category.message}</p>
                 )}
@@ -207,127 +234,109 @@ const Dashboard = ({ isDarkMode, onLogin, userInfo }: Expense) => {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Container>
-          {isLoading ? (
-            <div className="text-center">
-              <Spinner animation="border" variant="primary" />
-              <h2>Loading...</h2>
-            </div>
-          ) : expenseItems.length === 0 ? (
-            <Container>
+
+        {isLoading ? (
+          <div className="text-center">
+            <Spinner animation="border" variant="primary" />
+            <h2>Loading...</h2>
+          </div>
+        ) : expenseItems.length === 0 ? (
+          <Container>
+            <Row>
+              <Col>
+                <h2 className="text-center m-3">No Expense Items Found</h2>
+              </Col>
+            </Row>
+            <Container className="AddBtn">
               <Row>
                 <Col>
-                  <h2 className="text-center m-3">No Expense Items Found
-                  </h2>
+                  <Button variant="outline-primary" onClick={() => handleShow()} >
+                    <MdFormatListBulletedAdd size={50} id="addIcon" title="Add Expense" />
+                  </Button>
                 </Col>
               </Row>
-              <Container className="AddBtn">
-                <Row>
-                  <Col>
-                    <Button variant="outline-primary" onClick={() => handleShow()} >
-                      <MdFormatListBulletedAdd size={50} id="addIcon" title="Add Expense" />
-                    </Button>
-
-                  </Col>
-                </Row>
-              </Container>
             </Container>
+          </Container>
+        ) : (
+          <Card className="text-center">
+            <Card.Header className="CardTitle">
+              {userData.publisherName}'s Total Expenses: ${totalAmount.toFixed(2)}
+            </Card.Header>
+            <Card.Body>
+              <Table className="striped hover responsive"
+                data-bs-theme={isDarkMode ? "dark" : "light"}
+              >
+                <thead>
+                  <tr>
+                    <th className="tableHeadFoot"></th>
+                    <th className="tableHeadFoot">DESCRIPTION</th>
+                    <th className="tableHeadFoot">AMOUNT</th>
+                    <th className="tableHeadFoot">
+                    <ExpenseFilter
+                onSelectCategory={setSelectedCategory}
+                selectedCategory={selectedCategory}
+              />
 
-          ) : (
 
-
-            <Accordion defaultActiveKey="0">
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>
-                  <h3 className="my-1">{userData.publisherName}'s Total Expenses: ${totalAmount.toFixed(2)}</h3>
-                </Accordion.Header>
-                <Accordion.Body>
-                  <Table className="striped hover responsive">
-                    <thead>
-                      <tr>
-                        <th className="tableHeadFoot" >
-                          <Button variant="outline-primary" onClick={() => handleShow()}>
-                            Add
-                            <MdFormatListBulletedAdd size={20} id="addIcon" />
-                          </Button>
-                        </th >
-
-                        <th className="tableHeadFoot">DESCRIPTION</th>
-                        <th className="tableHeadFoot">AMOUNT</th>
-                        <th className="tableHeadFoot">CATEGORY</th>
-                        <th className="tableHeadFoot"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {expenseItems.map((expense) => (
-                        <tr key={expense.id}>
-                          <td>
-                            <Button
-                              variant="outline-none"
-                              onClick={() => handleShow(expense)}
-                              title="Edit"
-                              className="ms-2"
-                            >
-                              <GrEdit size={25} color="orange" />
-                            </Button>
-                            {/* <Button
-                          variant="outline-none"
-                          onClick={() => handleDelete(expense)}
-                          title="Delete"
-                          className="p-0"
-                        >
-                          <FaRegTrashCan size={25} color="red"/>
-                        </Button> */}
-
-                          </td>
-                          <td>{expense.description}</td>
-                          <td>${expense.amount.toFixed(2)}</td>
-                          <td>{expense.category}</td>
-                          <td>
-                            {/* <Button
+                    </th>
+                    {/* <th className="tableHeadFoot">CATEGORY</th> */}
+                    <th className="tableHeadFoot">
+                      <Button variant="outline-info" size="sm" onClick={() => handleShow()}>
+                        <IoMdAddCircle size={20} id="addIcon"/> Add
+                      </Button>   
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {visibleExpenses.map((expense) => (
+                    <tr key={expense.id}>
+                      <td></td>
+                      <td>{expense.description}</td>
+                      <td>${expense.amount.toFixed(2)}</td>
+                      <td>{expense.category}</td>
+                      <td>
+                        <Button
                           variant="outline-none"
                           onClick={() => handleShow(expense)}
                           title="Edit"
                           className="ms-2"
                         >
                           <GrEdit size={25} color="orange" />
-                        </Button> */}
-                            <Button
-                              variant="outline-none"
-                              onClick={() => handleDelete(expense)}
-                              title="Delete"
-                              className="p-0"
-                            >
-                              <FaRegTrashCan size={25} color="red" />
-                            </Button>
-
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                    <tfoot className="tableHeadFoot">
-                      <tr>
-                        <td className="tableHeadFoot"></td>
-                        <td className="tableHeadFoot"></td>
-                        <td className="tableHeadFoot">
-                          $
-                          {expenseItems
-                            .filter((item) => item.isPublished)
-                            .reduce((total, expense) => total + expense.amount, 0)
-                            .toFixed(2)}
-                        </td>
-                        <td className="tableHeadFoot"></td>
-
-                        <th className="tableHeadFoot"></th>
-                      </tr>
-                    </tfoot>
-                  </Table>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-
-          )}
-        </Container>
+                        </Button>
+                        <Button
+                          variant="outline-none"
+                          onClick={() => handleDelete(expense)}
+                          title="Delete"
+                          className="p-0"
+                        >
+                          <FaRegTrashCan size={25} color="red" />
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot className="tableHeadFoot">
+                  <tr>
+                    <th className="tableHeadFoot"></th>
+                    <th className="tableHeadFoot"></th>
+                    <th className="tableHeadFoot">
+                      $
+                      {visibleExpenses
+                        .filter((item) => item.isPublished)
+                        .reduce((total, expense) => total + expense.amount, 0)
+                        .toFixed(2)}
+                    </th>
+                    <th className="tableHeadFoot"></th>
+                    <th className="tableHeadFoot"></th>
+                  </tr>
+                </tfoot>
+              </Table>
+            </Card.Body>
+            <Card.Footer>
+          
+            </Card.Footer>
+          </Card>
+        )}
       </Container>
     </>
   );
