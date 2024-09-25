@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import avatar from '../assets/images/Money-Benjamin-unsplash.jpg'
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocalStorage } from "../hooks/UselocalStorage";
 import Sun from '../assets/images/weather-sun-icon-10.jpg'
 import Moon from '../assets/images/Weather_icon_-_full_moon.svg.png'
