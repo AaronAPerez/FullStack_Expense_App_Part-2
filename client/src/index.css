@@ -27,6 +27,15 @@ body.bg-light {
   opacity: 95%;
 }
 
+.NavContainer{
+  height: 56px;
+  padding: 0 16px;
+  display: flexbox;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
 
 
 .logo {
@@ -40,9 +49,11 @@ body.bg-light {
   padding-bottom: 6px;
 }
 
+
+/* 
 a.nav-link{
   font-family: 'Roboto',sans-serif!important;
-}
+} */
 
 .nav-brand{
 text-decoration: underline;
@@ -65,7 +76,6 @@ text-decoration: underline;
 
 
 .nav-link {
-  display: flex;
   font-size: 1.4rem;
   font-weight: 500;
 }
@@ -98,7 +108,7 @@ text-decoration: underline;
   align-items: center;
   font-size: 2rem;
   font-weight: 500;
-  background-color: #bb580dc3;
+  background-color: #767676c3;
  
 }
 

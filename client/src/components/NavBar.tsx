@@ -7,7 +7,7 @@ import { useLocalStorage } from "../hooks/UselocalStorage";
 import Sun from '../assets/images/weather-sun-icon-10.jpg'
 import Moon from '../assets/images/Weather_icon_-_full_moon.svg.png'
 import logo from '../assets/images/BanKGold.png'
-import { Dropdown, Image } from "react-bootstrap";
+import { Dropdown, Image, NavbarText } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {  } from "react-icons/gr";
 import guest from "../assets/images/_user_circle_duotone_icon.png";
@@ -66,7 +66,7 @@ const NavBar = ({ isDarkMode, toggleDarkMode, isLoggedIn, setIsLoggedIn }: NavBa
         className={`${isDarkMode ? "bg-dark" : "bg-body-tertiary"}`}
         // fixed="top"
       >
-        <Container>
+        <Container className="NavCo">
             <Navbar.Brand as={Link} to={"/"} className="logo">EXPENSE  <img src={logo} width={40}/> TRACKER
             {/* <FaPiggyBank color="pink"/> */}
             </Navbar.Brand>
@@ -107,7 +107,7 @@ const NavBar = ({ isDarkMode, toggleDarkMode, isLoggedIn, setIsLoggedIn }: NavBa
               )}
               {isLoggedIn && (
                 <>
-                  <Nav.Link>Welcome {user ? user.publisherName : "Guest"}</Nav.Link>
+                  <Navbar.Text>Welcome {user ? user.publisherName : "Guest"}</Navbar.Text>
                  
                     <Dropdown align="end">
                   <Dropdown.Toggle variant="link" id="dropdown-avatar" className="px-2">
