@@ -19,6 +19,7 @@ import { MdFormatListBulletedAdd } from "react-icons/md";
 import { IoMdAddCircle } from "react-icons/io";
 import ExpenseFilter from "./ExpenseFilter";
 import { useLocalStorage } from "../hooks/UselocalStorage";
+import ExpenseTable from "./ExpenseTable";
 
 
 const schema = z.object({
@@ -40,7 +41,7 @@ interface Expense {
 }
 
 const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (userInfo: any) => void }) => {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [edit, setEdit] = useState<number | null>(null);
   const [userId, setUserId] = useState(0);
   const [userData, setUserData] = useState<any>(null);
@@ -122,37 +123,37 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
     }
   };
 
-  const handleClose = () => {
-    setShow(false);
-    setEdit(null);
-    reset();
-  };
+  // const handleClose = () => {
+  //   setShow(false);
+  //   setEdit(null);
+  //   reset();
+  // };
 
-  const handleShow = (expense?: Expense) => {
-    setShow(true);
-    if (expense) {
-      setEdit(expense.id);
-      setValue("description", expense.description);
-      setValue("amount", expense.amount);
-      setValue("category", expense.category);
-    } else {
-      setEdit(null);
-      reset();
-    }
-  };
+  // const handleShow = (expense?: Expense) => {
+  //   setShow(true);
+  //   if (expense) {
+  //     setEdit(expense.id);
+  //     setValue("description", expense.description);
+  //     setValue("amount", expense.amount);
+  //     setValue("category", expense.category);
+  //   } else {
+  //     setEdit(null);
+  //     reset();
+  //   }
+  // };
 
-  const handleDelete = async (item: Expense) => {
-    try {
-      const updatedItem = { ...item, isDeleted: true };
-      await updateExpenseItems(updatedItem);
-      let userExpenseItems = await getItemsByUserId(userId);
-      setExpenseItems(userExpenseItems);
-      toast.success("Expense deleted successfully");
-    } catch (error) {
-      console.error("Error deleting expense:", error);
-      toast.error("Failed to delete expense");
-    }
-  };
+  // const handleDelete = async (item: Expense) => {
+  //   try {
+  //     const updatedItem = { ...item, isDeleted: true };
+  //     await updateExpenseItems(updatedItem);
+  //     let userExpenseItems = await getItemsByUserId(userId);
+  //     setExpenseItems(userExpenseItems);
+  //     toast.success("Expense deleted successfully");
+  //   } catch (error) {
+  //     console.error("Error deleting expense:", error);
+  //     toast.error("Failed to delete expense");
+  //   }
+  // };
 
   const totalAmount = expenseItems.reduce((acc, item) => acc + item.amount, 0);
 
@@ -163,7 +164,7 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
   return (
     <>
       <Container className={isDarkMode ? "bg-dark text-light" : "bg-light"}>
-        <Modal
+        {/* <Modal
           data-bs-theme={isDarkMode ? "dark" : "light"}
           show={show}
           onHide={handleClose}
@@ -218,7 +219,7 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                   <option value="Entertainment">Entertainment</option>
                   <option value="Shopping">Shopping</option>
                   <option value="Other">Other</option>
-                </Form.Select> */}
+                </Form.Select> 
                 {errors.category && (
                   <p className="text-danger">{errors.category.message}</p>
                 )}
@@ -233,7 +234,7 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
               Save
             </Button>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
 
         {isLoading ? (
           <div className="text-center">

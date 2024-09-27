@@ -21,8 +21,8 @@ export interface Expense {
 }
 
 const App = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  // const [selectedCategory, setSelectedCategory] = useState("");
+  // const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
