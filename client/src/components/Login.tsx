@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Card, CardText } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../hooks/UselocalStorage";
 import { getLoggedInUser, login } from "../Services/DataService";
@@ -54,11 +54,11 @@ const Login = ({ onLogin }) => {
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col className="form-container">
+      <Container className="form-container">
+        <Card className="LoginCard">
+          <Card.Header className="text-center h5">Login</Card.Header>
+          <Card.Body>
             <Form onSubmit={handleSubmit(onSubmit)}>
-              <p className="text-center">Login</p>
               <Form.Group className="mb-3" controlId="Username">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -70,7 +70,6 @@ const Login = ({ onLogin }) => {
                   <p className="text-danger">{errors.username.message}</p>
                 )}
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <div className="position-relative">
@@ -91,22 +90,30 @@ const Login = ({ onLogin }) => {
                     )}
                   </span>
                 </div>
+                <CardText>
                 {errors.password && (
-                  <p className="text-danger">{errors.password.message}</p>
+                  <div className="text-danger">{errors.password.message}</div>
                 )}
+                </CardText>
               </Form.Group>
-
-              <Button variant="outline-primary" type="submit">
-                Login
-              </Button>
-
-              <p className="pt-4 fw-light">Don't have an account?</p>
-              <Button variant="outline-success" onClick={() => navigate('/CreateAccount')}>
-                Create Account
-              </Button>
+              <Form.Group as={Row} className="my-3" controlId="ConfirmPassword">
+                <Col sm={{ span: 10 }}>
+                  <Button variant="outline-success" type="submit">
+                    Login
+                  </Button>
+                </Col>
+              </Form.Group>
+              <p className="fw-light">Don't have an account?</p>
+              <Form.Group as={Row} className="my-3">
+                <Col sm={{ span: 10 }}>
+                  <Button variant="outline-primary" onClick={() => navigate('/CreateAccount')}>
+                    Create Account
+                  </Button>
+                </Col>
+              </Form.Group>
             </Form>
-          </Col>
-        </Row>
+          </Card.Body>
+        </Card>
       </Container>
     </>
   );

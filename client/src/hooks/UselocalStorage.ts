@@ -1,7 +1,7 @@
-// UselocalStorage.ts
-// This custom hook provides an interface to interact with localStorage
+// Custom hook for localStorage
 
 export const useLocalStorage = (key: string) => {
+
   // setItem: Saves a value to localStorage
   const setItem = (value: unknown) => {
     try {
@@ -31,6 +31,6 @@ export const useLocalStorage = (key: string) => {
     }
   };
 
-  // Return an object with methods to interact with localStorage
+  // Return object with methods for localStorage
   return { setItem, getItem, removeItem };
 };

@@ -2,15 +2,14 @@ import categories from "../categories";
 
 interface FilterProps {
   onSelectCategory: (category: string) => void;
-  selectedCategory: string;
 }
 
-const ExpenseFilter = ({ onSelectCategory, selectedCategory }: FilterProps) => {
+const ExpenseFilter = ({ onSelectCategory }: FilterProps) => {
   return (
-    <div className="container mt-4">
+    <>
+  
       <select
-        className="form-select"
-        value={selectedCategory}
+        className="form-select-category"
         onChange={(e) => onSelectCategory(e.target.value)}
       >
         <option value="">All Categories</option>
@@ -20,7 +19,8 @@ const ExpenseFilter = ({ onSelectCategory, selectedCategory }: FilterProps) => {
           </option>
         ))}
       </select>
-    </div>
+  
+    </>
   );
 };
 
