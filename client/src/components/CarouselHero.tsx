@@ -10,6 +10,7 @@ const CarouselHero = ({ isDarkMode }) => {
   return (
     <>
       <Carousel data-bs-theme={isDarkMode ? 'dark' : 'light'}>
+        
 
         <Carousel.Item className='CItem'>
           <img

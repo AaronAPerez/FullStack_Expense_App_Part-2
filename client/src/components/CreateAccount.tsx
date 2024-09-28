@@ -47,9 +47,9 @@ const CreateAccount = () => {
   };
 
   return (
-    <Container>
+    <Container className="form-container">
       <Row>
-        <Col className="form-container d-flex justify-content-center">
+        <Col>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <p className="text-center">Create Account</p>
             <Form.Group className="mb-3" controlId="Username">

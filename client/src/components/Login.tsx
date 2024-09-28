@@ -54,9 +54,9 @@ const Login = ({ onLogin }) => {
 
   return (
     <>
-      <Container>
+      <Container className="form-container">
         <Row>
-          <Col className="form-container">
+          <Col>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <p className="text-center">Login</p>
               <Form.Group className="mb-3" controlId="Username">

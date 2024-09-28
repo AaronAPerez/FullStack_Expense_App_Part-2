@@ -258,7 +258,7 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
             </Container>
           </Container>
         ) : (
-          <Card className="text-center">
+          <Card className="CardTable">
             <Card.Header className="CardTitle">
               {userData.publisherName}'s Total Expenses: ${totalAmount.toFixed(2)}
             </Card.Header>
@@ -299,7 +299,6 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                           variant="outline-none"
                           onClick={() => handleShow(expense)}
                           title="Edit"
-                          className="ms-2"
                         >
                           <GrEdit size={25} color="orange" />
                         </Button>
@@ -307,7 +306,6 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                           variant="outline-none"
                           onClick={() => handleDelete(expense)}
                           title="Delete"
-                          className="p-0"
                         >
                           <FaRegTrashCan size={25} color="red" />
                         </Button>

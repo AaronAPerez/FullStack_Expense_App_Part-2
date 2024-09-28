@@ -57,7 +57,6 @@ const NavBar = ({ isDarkMode, toggleDarkMode, isLoggedIn, setIsLoggedIn }: NavBa
   };
 
   return (
-
     <>
       <Navbar
         collapseOnSelect
@@ -66,7 +65,7 @@ const NavBar = ({ isDarkMode, toggleDarkMode, isLoggedIn, setIsLoggedIn }: NavBa
         className={`${isDarkMode ? "bg-dark" : "bg-body-tertiary"}`}
         // fixed="top"
       >
-        <Container className="NavCo">
+        <Container className="NavContainer">
             <Navbar.Brand as={Link} to={"/"} className="logo">EXPENSE  <img src={logo} width={40}/> TRACKER
             {/* <FaPiggyBank color="pink"/> */}
             </Navbar.Brand>
@@ -115,7 +114,7 @@ const NavBar = ({ isDarkMode, toggleDarkMode, isLoggedIn, setIsLoggedIn }: NavBa
                     <Image
                       src={avatar}
                       roundedCircle
-                      width={55}
+                      width={50}
                       height={50}
                       
                    

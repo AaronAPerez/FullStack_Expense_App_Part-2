@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Dashboard from "./components/Dashboard";
 import CreateAccount from "./components/CreateAccount";
 import Login from "./components/Login";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Homepage from "./components/HomePage";
@@ -61,10 +61,10 @@ const App = () => {
         <Container fluid className={`${isDarkMode ? "bg-dark text-light" : "bg-light"}`}
           style={{ minHeight: "100vh", padding: "0px" }}
           data-bs-theme={isDarkMode ? "dark" : "light"}>
-            <Container>
+          
      
               <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-              </Container>
+         
      
 
           {/* Area for our routes to go to different pages */}
