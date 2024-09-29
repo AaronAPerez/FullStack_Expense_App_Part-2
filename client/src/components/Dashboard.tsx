@@ -19,6 +19,7 @@ import { MdFormatListBulletedAdd } from "react-icons/md";
 import { IoMdAddCircle } from "react-icons/io";
 import ExpenseFilter from "./ExpenseFilter";
 import { useLocalStorage } from "../hooks/UselocalStorage";
+import { TbCopyPlus } from "react-icons/tb";
 
 
 const schema = z.object({
@@ -208,17 +209,6 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                   <option value="Shopping">Shopping</option>
                   <option value="Other">Other</option>
                 </Form.Select>
-                {/* <Form.Select {...register("category")}
-                  id="category"
-                  className="form-select"
-                >
-                  <option value="">Select Category</option>
-                  <option value="Groceries">Groceries</option>
-                  <option value="Utilities">Utilities</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Shopping">Shopping</option>
-                  <option value="Other">Other</option>
-                </Form.Select> */}
                 {errors.category && (
                   <p className="text-danger">{errors.category.message}</p>
                 )}
@@ -268,10 +258,14 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
               >
                 <thead>
                   <tr>
-                    <th className="tableHeadFoot">
+                    <th className="tableHeadFoot">   ACTIONS
+            
+                      <Button variant="outline-none" size="sm" onClick={() => handleShow()}>
 
-                      <Button variant="outline-info" size="sm" onClick={() => handleShow()}>
-                        <IoMdAddCircle size={20} id="addIcon" /> Add
+                        <TbCopyPlus size={27} id="addIcon" title="Add Expense" />
+                        {/* <Button variant="btn outline-info" size="sm" onClick={() => handleShow()}>
+                      <TiPlusOutline />
+                        <IoMdAddCircle size={25} color="teal" id="addIcon" />  */}
                       </Button>
                     </th>
                     <th className="tableHeadFoot">DESCRIPTION</th>
@@ -285,11 +279,10 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                   </tr>
                 </thead>
                 <tbody>
-                  <td></td>
                   {visibleExpenses.map((expense) => (
                     <tr key={expense.id}>
                       <td>
-                                <Button
+                        <Button
                           variant="outline-none"
                           onClick={() => handleDelete(expense)}
                           title="Delete"
@@ -302,15 +295,11 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                           title="Edit"
                         >
                           <GrEdit size={25} color="orange" />
-
                         </Button>
-                
                       </td>
-
                       <td>{expense.description}</td>
                       <td>${expense.amount.toFixed(2)}</td>
                       <td>{expense.category}</td>
-
                     </tr>
                   ))}
                 </tbody>
@@ -326,13 +315,11 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                         .toFixed(2)}
                     </th>
                     <th className="tableHeadFoot"></th>
-
                   </tr>
                 </tfoot>
               </Table>
             </Card.Body>
             <Card.Footer>
-
             </Card.Footer>
           </Card>
         )}
