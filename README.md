@@ -1,7 +1,7 @@
 # Challenge 3 FullStack Expense App Part 2 <br>
 
 <b>Name:</b> Aaron Perez <br>
-<b>Date:</b> 08/xx/2024 <br>
+<b>Date:</b> 09/29/2024 <br>
 <b>Project Name:</b> FullStack Expense App Part 2 <br>
 In this Challenge you will add to your the Back End (Api)  and  front end  we have build. <br>
 <br>
@@ -11,8 +11,5 @@ In this Challenge you will add to your the Back End (Api)  and  front end  we ha
 3) Remember you need to add react router, to your front end to be able to navigate to each page. <br>
 4) Remember in. you back end you will need your usercontrollers, models, and services. Also need to update your database. <br><br>
 
-<b>GitHub:</b>  <br>
+<b>GitHub:</b> https://github.com/AaronAPerez/FullStack_Expense_App_Part-2/tree/Set <br>
 
-<b>Reviewed by:</b> ____________ <br>
-
-<b>Comments:</b> ________________________________________________________________________ <br>
