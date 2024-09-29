@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { BASE_URL } from '../constant';
 
-// Define types for user data and expense items
 interface UserData {
     id: number;
     username: string;
 }
-
 interface ExpenseItem {
     id: number;
     description: string;
@@ -16,12 +14,10 @@ interface ExpenseItem {
     isDeleted: boolean;
 }
 
-// Create an instance of axios with the base URL
 const instance = axios.create({
     baseURL: BASE_URL,
 });
 
-// Define functions
 
 const checkToken = (): boolean => {
     return !!localStorage.getItem('Token');

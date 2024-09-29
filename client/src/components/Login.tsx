@@ -10,7 +10,7 @@ import { LiaEyeSlashSolid, LiaEyeSolid } from "react-icons/lia";
 import { toast } from "react-toastify";
 
 
-// Define a Zod schema for form validation
+// Zod schema for form validation
 const schema = z.object({
   username: z.string().min(2, "Username is required"),
   password: z
@@ -36,21 +36,23 @@ const Login = ({ onLogin }) => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-    let token = await login(data);
-    console.log(token.token, "This should log the token");
-    if (token.token != null) {
-      localStorage.setItem("Token", token.token);
-      const userInfo = await getLoggedInUser(data.username);
-      setUserLocalStorage(userInfo);
-      onLogin(userInfo);
-      toast.success(`Welcome back, ${data.username}!`);
+    try {
+      let token = await login(data);
+      if (token.token != null) {
+        localStorage.setItem("Token", token.token);
+        const userInfo = await getLoggedInUser(data.username);
+        setUserLocalStorage(userInfo);
+        onLogin(userInfo);
+      toast.success(`Logged in Successfully: ${data.username}!`);
       navigate('/Dashboard');
     } else {
       toast.error("Login failed. Please check your credentials.");
     }
-  };
-
+  } catch (error) {
+    console.error("Login error:", error);
+    toast.error("An error occurred during login. Please try again.");
+  }
+};
 
   return (
     <>
@@ -91,9 +93,9 @@ const Login = ({ onLogin }) => {
                   </span>
                 </div>
                 <CardText>
-                {errors.password && (
-                  <div className="text-danger">{errors.password.message}</div>
-                )}
+                  {errors.password && (
+                    <div className="text-danger">{errors.password.message}</div>
+                  )}
                 </CardText>
               </Form.Group>
               <Form.Group as={Row} className="my-3" controlId="ConfirmPassword">

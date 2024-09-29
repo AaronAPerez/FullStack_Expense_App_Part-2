@@ -16,7 +16,6 @@ import {
 import { FaRegTrashCan } from "react-icons/fa6";
 import { GrEdit } from "react-icons/gr";
 import { MdFormatListBulletedAdd } from "react-icons/md";
-import { IoMdAddCircle } from "react-icons/io";
 import ExpenseFilter from "./ExpenseFilter";
 import { useLocalStorage } from "../hooks/UselocalStorage";
 import { TbCopyPlus } from "react-icons/tb";
@@ -169,7 +168,6 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
           show={show}
           onHide={handleClose}
         >
-
           <Modal.Header closeButton>
             <Modal.Title>{edit ? "Edit" : "Add"} Expense Item</Modal.Title>
           </Modal.Header>
@@ -224,7 +222,6 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
             </Button>
           </Modal.Footer>
         </Modal>
-
         {isLoading ? (
           <div className="text-center">
             <Spinner animation="border" variant="primary" />
@@ -258,14 +255,10 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
               >
                 <thead>
                   <tr>
-                    <th className="tableHeadFoot">   ACTIONS
-            
+                    <th className="tableHeadFoot">   
+                      ACTIONS
                       <Button variant="outline-none" size="sm" onClick={() => handleShow()}>
-
-                        <TbCopyPlus size={27} id="addIcon" title="Add Expense" />
-                        {/* <Button variant="btn outline-info" size="sm" onClick={() => handleShow()}>
-                      <TiPlusOutline />
-                        <IoMdAddCircle size={25} color="teal" id="addIcon" />  */}
+                        <TbCopyPlus size={25} color="darkblue" id="addIcon" title="Add Expense" />
                       </Button>
                     </th>
                     <th className="tableHeadFoot">DESCRIPTION</th>
