@@ -30,7 +30,7 @@ interface NavBarProps {
 
 const NavBar = ({ isDarkMode, toggleDarkMode, isLoggedIn, setIsLoggedIn }: NavBarProps) => {
   const [user, setUser] = useState<User | null>(null);
-  const { setItem: setUserLocalStorage, getItem: getUserLocalStorage, removeItem: removeUserLocalStorage } = useLocalStorage("user");
+  const { setItem: setUserLocalStorage, getItem: getUserLocalStorage, removeItem: removeUserLocalStorage,  } = useLocalStorage("user");
   const navigate = useNavigate();
 
   // Load user data from localStorage on component mount
@@ -123,8 +123,6 @@ const NavBar = ({ isDarkMode, toggleDarkMode, isLoggedIn, setIsLoggedIn }: NavBa
                       />
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item>
-                      </Dropdown.Item>
                       <Dropdown.Item as="label" htmlFor="avatar-upload">
                         Change Avatar
                         <input
