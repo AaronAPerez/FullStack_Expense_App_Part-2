@@ -1,48 +1,62 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import avatar from '../assets/images/Money-Benjamin-unsplash.jpg'
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocalStorage } from "../hooks/UselocalStorage";
 import Sun from '../assets/images/weather-sun-icon-10.jpg'
 import Moon from '../assets/images/Weather_icon_-_full_moon.svg.png'
 import logo from '../assets/images/BanKGold.png'
 import { Dropdown, Image, NavbarText } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import {  } from "react-icons/gr";
+import { Link, useNavigate } from "react-router-dom";
 import guest from "../assets/images/_user_circle_duotone_icon.png";
+import { toast } from "react-toastify";
+import { getLoggedInUserData, checkToken } from "../Services/DataService";
 
+//  Structure of the User object
+interface User {
+  id: number;
+  username: string;
+  publisherName: string;
+  avatar?: string;
+}
+
+// Props for the NavBar component
 interface NavBarProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
-  user: {
-    publisherName: string;
-    avatar?: string;
-  } | null;
   isLoggedIn: boolean;
   setIsLoggedIn: (value: boolean) => void;
 }
 
-
-
 const NavBar = ({ isDarkMode, toggleDarkMode, isLoggedIn, setIsLoggedIn }: NavBarProps) => {
-  const [user, setUser] = useState<{ publisherName: string; avatar?: string } | null>(null);
-  const { setItem: setUserLocalStorage, getItem: getUserLocalStorage } = useLocalStorage("user");
+  const [user, setUser] = useState<User | null>(null);
+  const { setItem: setUserLocalStorage, getItem: getUserLocalStorage, removeItem: removeUserLocalStorage,  } = useLocalStorage("user");
+  const navigate = useNavigate();
 
+  // Load user data from localStorage on component mount
   useEffect(() => {
     const storedUser = getUserLocalStorage();
-    if (storedUser) {
+    if (storedUser && checkToken()) {
       setUser(storedUser);
       setIsLoggedIn(true);
+    } else {
+      // If there's no valid token, clear the user data
+      handleLogout();
     }
   }, []);
 
+  // Handle user logout
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("Token");
+    removeUserLocalStorage();
     setUser(null);
     setIsLoggedIn(false);
+    navigate('/');
+    toast.info("You have been logged out.");
   };
 
+
+  // Handle avatar change
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -50,108 +64,89 @@ const NavBar = ({ isDarkMode, toggleDarkMode, isLoggedIn, setIsLoggedIn }: NavBa
       reader.onloadend = () => {
         const newUser = { ...user, avatar: reader.result as string };
         setUser(newUser);
-        setUserLocalStorage(newUser);
+        setUserLocalStorage(newUser); // Save updated user data to localStorage
+        toast.success("Avatar updated successfully!");
       };
       reader.readAsDataURL(file);
     }
   };
+
+  // Determine which avatar to display
+  const avatarSrc = user?.avatar || guest;
 
   return (
     <>
       <Navbar
         collapseOnSelect
         expand="lg"
-        data-bs-theme={`${isDarkMode ? "dark" : "light" }`}
-        className={`${isDarkMode ? "bg-dark" : "bg-body-tertiary"}`}
-        // fixed="top"
+        data-bs-theme={isDarkMode ? "dark" : "light"}
+        className={isDarkMode ? "bg-dark" : ""}
       >
         <Container className="NavContainer">
-            <Navbar.Brand as={Link} to={"/"} className="logo">EXPENSE  <img src={logo} width={40}/> TRACKER
-            {/* <FaPiggyBank color="pink"/> */}
-            </Navbar.Brand>
-         
+          <Navbar.Brand as={Link} to="/" className="logo">
+            EXPENSE <img src={logo} width={40} alt="Logo" /> TRACKER
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto"
-            
-            >
+            <Nav className="me-auto">
               {isLoggedIn && (
-                <>
-                  <Nav.Link as={Link} to="/Dashboard">
-                    Dashboard
-                  </Nav.Link>
-                </>
+                <Nav.Link as={Link} to="/Dashboard">
+                  Dashboard
+                </Nav.Link>
               )}
             </Nav>
-
             <Nav className="welcome">
-
               <Nav.Link onClick={toggleDarkMode}>
-                {isDarkMode ? <img src={Sun} className="SunImg" width={30}/> : <img src={Moon} width={30} />}
+                {isDarkMode ? (
+                  <img src={Sun} className="SunImg" width={30} title="Light Mode" alt="Sun" />
+                ) : (
+                  <img src={Moon} width={30} title="Dark Mode" alt="Moon" />
+                )}
               </Nav.Link>
-
               {!isLoggedIn ? (
                 <>
                   <Nav.Link as={Link} to="/CreateAccount">Create Account</Nav.Link>
                   <Nav.Link as={Link} to="/Login">Login</Nav.Link>
-                  <Image className="profilepic"
-                  src={guest}
-                  width={40}
-                />
-                   
-             
+                  <Image className="profilepic" src={guest} width={50} alt="Guest" />
                 </>
               ) : (
-                <Nav.Link></Nav.Link> 
-              )}
-              {isLoggedIn && (
                 <>
-                  <Navbar.Text>Welcome {user ? user.publisherName : "Guest"}</Navbar.Text>
-                 
-                    <Dropdown align="end">
-                  <Dropdown.Toggle variant="link" id="dropdown-avatar" className="px-2">
-                
-                    <Image
-                      src={avatar}
-                      roundedCircle
-                      width={50}
-                      height={50}
-                      
-                   
-                    />
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item as="label" htmlFor="avatar-upload">
-                      Change Avatar
-                      <input
-                        id="avatar-upload"
-                        type="file"
-                        accept="image/*"
-                        style={{ display: 'none' }}
-                        onChange={handleAvatarChange}
+                  {/* <NavbarText>{user ? user.publisherName : "Guest"}</NavbarText> */}
+                  <Dropdown align="end">
+                    <Dropdown.Toggle variant="link" id="dropdown-avatar">
+                      <Image
+                        src={avatarSrc}
+                        roundedCircle
+                        width={50}
+                        height={50}
+                        alt="User Avatar"
                       />
-                    </Dropdown.Item>
-                    <Dropdown.Item>
-                      <Nav.Link as={Link} to="/Login" onClick={handleLogout}
-                >Logout</Nav.Link>
-                 
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-               
-
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item as="label" htmlFor="avatar-upload">
+                        Change Avatar
+                        <input
+                          id="avatar-upload"
+                          type="file"
+                          accept="image/*"
+                          style={{ display: 'none' }}
+                          onChange={handleAvatarChange}
+                        />
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={handleLogout}>
+                        Logout
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </>
               )}
             </Nav>
-
           </Navbar.Collapse>
         </Container>
       </Navbar>
     </>
-  )
-}
+  );
+};
 
 export default NavBar;
-
-
 

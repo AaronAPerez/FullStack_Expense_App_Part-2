@@ -16,9 +16,9 @@ import {
 import { FaRegTrashCan } from "react-icons/fa6";
 import { GrEdit } from "react-icons/gr";
 import { MdFormatListBulletedAdd } from "react-icons/md";
-import { IoMdAddCircle } from "react-icons/io";
 import ExpenseFilter from "./ExpenseFilter";
 import { useLocalStorage } from "../hooks/UselocalStorage";
+import { TbCopyPlus } from "react-icons/tb";
 
 
 const schema = z.object({
@@ -168,15 +168,14 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
           show={show}
           onHide={handleClose}
         >
-    
-                  <Modal.Header closeButton>
-             <Modal.Title>{edit ? "Edit" : "Add"} Expense Item</Modal.Title>
-           </Modal.Header>
-           <Modal.Body>
-             <Form onSubmit={handleSubmit(onSubmit)}>
-               <Form.Group className="mb-3" controlId="Description">
-                 <Form.Label>Description</Form.Label>
-                 <Form.Control
+          <Modal.Header closeButton>
+            <Modal.Title>{edit ? "Edit" : "Add"} Expense Item</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form.Group className="mb-3" controlId="Description">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
                   as="textarea"
                   placeholder="Enter Description"
                   {...register("description")}
@@ -208,17 +207,6 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                   <option value="Shopping">Shopping</option>
                   <option value="Other">Other</option>
                 </Form.Select>
-                {/* <Form.Select {...register("category")}
-                  id="category"
-                  className="form-select"
-                >
-                  <option value="">Select Category</option>
-                  <option value="Groceries">Groceries</option>
-                  <option value="Utilities">Utilities</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Shopping">Shopping</option>
-                  <option value="Other">Other</option>
-                </Form.Select> */}
                 {errors.category && (
                   <p className="text-danger">{errors.category.message}</p>
                 )}
@@ -234,7 +222,6 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
             </Button>
           </Modal.Footer>
         </Modal>
-
         {isLoading ? (
           <div className="text-center">
             <Spinner animation="border" variant="primary" />
@@ -263,45 +250,31 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
               {userData.publisherName}'s Total Expenses: ${totalAmount.toFixed(2)}
             </Card.Header>
             <Card.Body>
-              <Table className="striped hover responsive"
+              <Table className="striped border hover responsive"
                 data-bs-theme={isDarkMode ? "dark" : "light"}
               >
                 <thead>
                   <tr>
-                    <th className="tableHeadFoot"></th>
+                    <th className="tableHeadFoot">   
+                      ACTIONS
+                      <Button variant="outline-none" size="sm" onClick={() => handleShow()}>
+                        <TbCopyPlus size={25} color="darkblue" id="addIcon" title="Add Expense" />
+                      </Button>
+                    </th>
                     <th className="tableHeadFoot">DESCRIPTION</th>
                     <th className="tableHeadFoot">AMOUNT</th>
                     <th className="tableHeadFoot">
-                    <ExpenseFilter
-                onSelectCategory={setSelectedCategory}
-                selectedCategory={selectedCategory}
-              />
-
-
-                    </th>
-                    {/* <th className="tableHeadFoot">CATEGORY</th> */}
-                    <th className="tableHeadFoot">
-                      <Button variant="outline-info" size="sm" onClick={() => handleShow()}>
-                        <IoMdAddCircle size={20} id="addIcon"/> Add
-                      </Button>   
+                      <ExpenseFilter
+                        onSelectCategory={setSelectedCategory}
+                        selectedCategory={selectedCategory}
+                      />
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {visibleExpenses.map((expense) => (
                     <tr key={expense.id}>
-                      <td></td>
-                      <td>{expense.description}</td>
-                      <td>${expense.amount.toFixed(2)}</td>
-                      <td>{expense.category}</td>
                       <td>
-                        <Button
-                          variant="outline-none"
-                          onClick={() => handleShow(expense)}
-                          title="Edit"
-                        >
-                          <GrEdit size={25} color="orange" />
-                        </Button>
                         <Button
                           variant="outline-none"
                           onClick={() => handleDelete(expense)}
@@ -309,7 +282,17 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                         >
                           <FaRegTrashCan size={25} color="red" />
                         </Button>
+                        <Button
+                          variant="outline-none"
+                          onClick={() => handleShow(expense)}
+                          title="Edit"
+                        >
+                          <GrEdit size={25} color="orange" />
+                        </Button>
                       </td>
+                      <td>{expense.description}</td>
+                      <td>${expense.amount.toFixed(2)}</td>
+                      <td>{expense.category}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -325,13 +308,11 @@ const Dashboard = ({ isDarkMode, onLogin }: { isDarkMode: boolean; onLogin: (use
                         .toFixed(2)}
                     </th>
                     <th className="tableHeadFoot"></th>
-                    <th className="tableHeadFoot"></th>
                   </tr>
                 </tfoot>
               </Table>
             </Card.Body>
             <Card.Footer>
-          
             </Card.Footer>
           </Card>
         )}

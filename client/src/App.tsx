@@ -57,25 +57,29 @@ const App = () => {
 
   return (
     <>
-      
-        <Container fluid className={`${isDarkMode ? "bg-dark text-light" : "bg-light"}`}
-          style={{ minHeight: "100vh", padding: "0px" }}
-          data-bs-theme={isDarkMode ? "dark" : "light"}>
-          
-     
-              <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-         
-     
 
-          {/* Area for our routes to go to different pages */}
-          <Container>
-     
+      <Container fluid className={`${isDarkMode ? "bg-dark text-light" : "bg-light"}`}
+        style={{ minHeight: "100vh", padding: "0px" }}
+        data-bs-theme={isDarkMode ? "dark" : "light"}>
+
+
+        <NavBar 
+          isDarkMode={isDarkMode} 
+          toggleDarkMode={toggleDarkMode} 
+          user={user} 
+          isLoggedIn={isLoggedIn} 
+          setIsLoggedIn={setIsLoggedIn} 
+        />
+
+        {/* Area for our routes to go to different pages */}
+        <Container>
           <Routes>
             <Route path="/" element={<Homepage />} />
-
             <Route path="/Login" element={<Login onLogin={handleLogin} />} />
             <Route path="/CreateAccount" element={<CreateAccount />} />
             <Route path="/Dashboard" element={<Dashboard isDarkMode={isDarkMode} onLogin={handleLogin} />} />
+
+            <Route path="/HomePage" element={<Dashboard isDarkMode={isDarkMode} onLogin={handleLogin} />} />
 
           </Routes>
 
@@ -84,12 +88,11 @@ const App = () => {
           theme="dark"
 
         />
-        </Container>
+      </Container>
 
-   
+
     </>
   );
 };
 
 export default App;
-
